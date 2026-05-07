@@ -225,8 +225,9 @@
      <div class="d-flex flex-column h-100 py-3">
         <a class="nav-item-custom active" onclick="showPage('pengajaran', this)"><i class="fa-solid fa-chalkboard-user fa-fw"></i> Pengajaran</a>
         <a class="nav-item-custom" onclick="showPage('penelitian', this)"><i class="fa-solid fa-microscope fa-fw"></i> Penelitian</a>
-        <a class="nav-item-custom" onclick="showPage('pengabdian', this)"><i class="fa-solid fa-hands-holding-child fa-fw"></i> Pengabdian</a>
+       <a class="nav-item-custom" onclick="showPage('pengabdian', this)"><i class="fa-solid fa-hands-holding-child fa-fw"></i> Pengabdian</a>
         <a class="nav-item-custom" onclick="showPage('monev', this)"><i class="fa-solid fa-file-invoice fa-fw"></i> Laporan Monev</a>
+        <a class="nav-item-custom" onclick="showPage('tindaklanjut', this)"><i class="fa-solid fa-file-signature fa-fw"></i> Laporan Tindak Lanjut</a>
         
         <div class="mt-auto px-3 pb-3">
           <div class="card border-0 bg-light">
@@ -668,7 +669,68 @@
         </div>
 
       </div>
+<div id="page-tindaklanjut" class="page-section d-none">
+          <div class="row align-items-end mb-3 g-3">
+            <div class="col-md-3">
+              <label class="form-label small fw-semibold text-muted mb-1">Tahun Akademik</label>
+              <select class="form-select" id="filterTATindakLanjut" onchange="fetchTindakLanjutData()">
+                <option value="2023/2024">2023/2024</option>
+                <option value="2024/2025" selected>2024/2025</option>
+                <option value="2025/2026">2025/2026</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label small fw-semibold text-muted mb-1">Semester</label>
+              <select class="form-select" id="filterSemesterTindakLanjut" onchange="fetchTindakLanjutData()">
+                <option value="Gasal" selected>Gasal</option>
+                <option value="Genap">Genap</option>
+              </select>
+            </div>
+          </div>
 
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-file-signature me-2 text-primary"></i>Laporan Tindak Lanjut</h5>
+          </div>
+
+          <div id="containerAddTindakLanjut" class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
+            <div class="card-body p-3">
+              <form id="formAddTindakLanjut" class="row g-3 align-items-end">
+                <div class="col-md-5">
+                  <label class="form-label small fw-semibold text-muted mb-1">Judul Laporan Tindak Lanjut</label>
+                  <input type="text" id="inputJudulTindakLanjut" class="form-control" placeholder="Contoh: Tindak Lanjut Monev Gasal 2024..." required>
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label small fw-semibold text-muted mb-1">Link Google Drive</label>
+                  <input type="url" id="inputLinkTindakLanjut" class="form-control" placeholder="https://drive.google.com/..." required>
+                </div>
+                <div class="col-md-2">
+                  <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-plus me-1"></i>Tambah Laporan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center" width="5%">No.</th>
+                      <th width="45%">Judul Laporan</th>
+                      <th class="text-center" width="20%">Link Berkas</th>
+                      <th class="text-center" width="20%">Tanggal Dibuat</th>
+                      <th class="text-center" width="10%">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tindakLanjutTableBody">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
     
   <!-- MODAL: INPUT LINK & YA/TIDAK (GKM) -->
   <div class="modal fade" id="modalInputLink" tabindex="-1">
@@ -932,10 +994,13 @@
       'Kesesuaian Pengabdian dengan Roadmap Prodi', 'SK Hibah (jika dana hibah)', 'SPTJB (jika dana hibah)'
     ];
     
-    // State untuk Laporan Monev
-    var dbMonev = [];
-    
-    // List Prodi
+   // State untuk Laporan Monev
+    var dbMonev = [];
+
+    // State untuk Laporan Tindak Lanjut
+    var dbTindakLanjut = [];
+    
+    // List Prodi
     const prodiList = [
       { name: 'Pend. Matematika (S1)', icon: 'fa-square-root-variable' },
       { name: 'Pend. Luar Sekolah (S1)', icon: 'fa-school' },
@@ -1002,7 +1067,7 @@
     // CORE HELPERS
     // ==========================================
     // ⚠️ PENTING: Ganti tulisan URL_WEBAPP_ANDA_DISINI dengan link WebApp Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQJxewuHkkwxSgKjRoHXqzosBFIi43tVPOaNCNw5FUVILu-g36abUoUi9Bw_m_fHko/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyoMWSeyejjDeZMciDVmIr8Tju0yLE9CdX8LNzOPIfqIVpnk__KAgEkkO0KRIySCQaz/exec';
 
     function gasRun(funcName) {
       var args = Array.prototype.slice.call(arguments, 1);
@@ -1145,9 +1210,13 @@ function checkLoginState() {
            if(inputNamaPenilaiPeng) { inputNamaPenilaiPeng.readOnly = false; inputNamaPenilaiPeng.placeholder = 'Nama Penilai GJM...'; if(!inputNamaPenilaiPeng.value) inputNamaPenilaiPeng.value = currentUser.fullname; }
            if(inputNipNidnPeng) { inputNipNidnPeng.readOnly = false; inputNipNidnPeng.placeholder = 'NIP / NIDN...'; }
 
-           // Hide form Monev from Admin
-           var formAddMonev = document.getElementById('containerAddMonev');
-           if(formAddMonev) formAddMonev.style.display = 'none';
+          // Hide form Monev from Admin
+           var formAddMonev = document.getElementById('containerAddMonev');
+           if(formAddMonev) formAddMonev.style.display = 'none';
+           
+           // Hide form Tindak Lanjut from Admin
+           var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
+           if(formAddTindakLanjut) formAddTindakLanjut.style.display = 'none';
         } else {
            if(formAddMK) formAddMK.style.display = 'block';
            if(inputSKDekan) inputSKDekan.readOnly = false;
@@ -1192,11 +1261,14 @@ function checkLoginState() {
            if(inputNamaPenilaiPeng) { inputNamaPenilaiPeng.readOnly = true; inputNamaPenilaiPeng.value = ''; inputNamaPenilaiPeng.placeholder = 'Hanya diisi GJM'; }
            if(inputNipNidnPeng) { inputNipNidnPeng.readOnly = true; inputNipNidnPeng.value = ''; inputNipNidnPeng.placeholder = 'Hanya diisi GJM'; }
            
-           var formAddMonev = document.getElementById('containerAddMonev');
-           if(formAddMonev) formAddMonev.style.display = 'block';
+          var formAddMonev = document.getElementById('containerAddMonev');
+           if(formAddMonev) formAddMonev.style.display = 'block';
+           
+           var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
+           if(formAddTindakLanjut) formAddTindakLanjut.style.display = 'block';
         }
 
-        if (!currentProdi) {
+        if (!currentProdi) {
           loginPage.classList.add('d-none');
           prodiPage.classList.remove('d-none');
           mainApp.classList.add('d-none');
@@ -1258,7 +1330,7 @@ function checkLoginState() {
       var targetPage = document.getElementById('page-' + pageName);
       if (targetPage) targetPage.classList.remove('d-none');
 
-     var titles = { 'pengajaran': 'Manajemen Pengajaran', 'penelitian': 'Manajemen Penelitian', 'pengabdian': 'Manajemen Pengabdian', 'monev': 'Laporan Monev' };
+    var titles = { 'pengajaran': 'Manajemen Pengajaran', 'penelitian': 'Manajemen Penelitian', 'pengabdian': 'Manajemen Pengabdian', 'monev': 'Laporan Monev', 'tindaklanjut': 'Laporan Tindak Lanjut' };
       document.getElementById('pageTitle').innerText = titles[pageName] || 'Dashboard';
       
       if (window.innerWidth < 992) toggleSidebar();
@@ -1289,6 +1361,8 @@ function checkLoginState() {
         else renderPengabdian();
       } else if (pageName === 'monev') {
         fetchMonevData();
+      } else if (pageName === 'tindaklanjut') {
+        fetchTindakLanjutData();
       }
     }
 
@@ -2455,6 +2529,100 @@ function handleSaveRoadmap() {
       });
     }
     // ==========================================
+// LOGIKA LAPORAN TINDAK LANJUT
+// ==========================================
+    function fetchTindakLanjutData() {
+      var reqTA = document.getElementById('filterTATindakLanjut').value;
+      var reqSem = document.getElementById('filterSemesterTindakLanjut').value;
+      
+      var tbody = document.getElementById('tindakLanjutTableBody');
+      if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted"><span class="spinner-border spinner-border-sm me-2"></span>Memuat Laporan...</td></tr>';
+      
+      if (typeof google === 'undefined') {
+        setTimeout(function() { dbTindakLanjut = []; renderTindakLanjut(); }, 500);
+      } else {
+        gasRun('getLaporanTindakLanjut', currentProdi, reqTA, reqSem).then(function(res) {
+          dbTindakLanjut = res.dataTindakLanjut || [];
+          renderTindakLanjut();
+        }).catch(function(err) {
+          if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Gagal memuat laporan tindak lanjut.</td></tr>';
+        });
+      }
+    }
+
+    function renderTindakLanjut() {
+      var tbody = document.getElementById('tindakLanjutTableBody');
+      if (!tbody) return;
+      
+      if (dbTindakLanjut.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Belum ada laporan tindak lanjut.</td></tr>';
+        return;
+      }
+      
+      var html = '';
+      dbTindakLanjut.forEach(function(item, idx) {
+        var isSyncing = item._isSyncing;
+        var opacity = isSyncing ? 'opacity-50' : '';
+        
+        html += '<tr class="'+opacity+' align-middle">';
+        html += '<td class="text-center">' + (idx + 1) + '</td>';
+        html += '<td class="fw-medium text-dark">' + item.judul_laporan + '</td>';
+        html += '<td class="text-center"><a href="'+item.link_drive+'" target="_blank" class="btn btn-sm btn-info text-white"><i class="fa-solid fa-link me-1"></i> Buka Link</a></td>';
+        html += '<td class="text-center small text-muted">' + item.created_at + '</td>';
+        
+        html += '<td class="text-center">';
+        if (currentUser.role === 'Staff' && !isSyncing) {
+          html += '<button class="btn btn-sm btn-outline-danger py-1 px-2" onclick="handleDeleteTindakLanjut('+item.id+')"><i class="fa-solid fa-trash"></i></button>';
+        } else if (currentUser.role === 'Admin') {
+          html += '<span class="text-muted small">-</span>';
+        } else {
+          html += '<span class="spinner-border spinner-border-sm text-secondary"></span>';
+        }
+        html += '</td>';
+        
+        html += '</tr>';
+      });
+      tbody.innerHTML = html;
+    }
+
+    function handleAddTindakLanjut() {
+      var judul = document.getElementById('inputJudulTindakLanjut').value.trim();
+      var link = document.getElementById('inputLinkTindakLanjut').value.trim();
+      
+     var payload = {
+        prodi: currentProdi,
+        ta: document.getElementById('filterTATindakLanjut').value,
+        semester: document.getElementById('filterSemesterTindakLanjut').value,
+        judul_laporan: judul,
+        link_drive: link
+      };
+      
+      document.getElementById('formAddTindakLanjut').reset();
+      
+      var tempObj = { id: Date.now(), judul_laporan: judul, link_drive: link, created_at: safeDate(new Date()), _isSyncing: true };
+      dbTindakLanjut.push(tempObj); renderTindakLanjut();
+      
+      if (typeof google !== 'undefined') {
+        gasRun('addLaporanTindakLanjut', payload).then(function(res) {
+          if (res.success) fetchTindakLanjutData(); else Swal.fire('Error', res.message, 'error');
+        });
+      }
+    }
+
+    function handleDeleteTindakLanjut(id) {
+      Swal.fire({ title: 'Hapus Laporan?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya, hapus'
+      }).then(function(result) {
+        if (!result.isConfirmed) return;
+        
+        dbTindakLanjut = dbTindakLanjut.filter(function(x) { return String(x.id) !== String(id); });
+        renderTindakLanjut();
+        
+        if (typeof google !== 'undefined') {
+          gasRun('deleteLaporanTindakLanjut', id).then(function(res) { if (!res.success) fetchTindakLanjutData(); });
+        }
+      });
+    }
+    // ==========================================
     // AUTHENTICATION FLOW
     // ==========================================
     function handleLogin() {
@@ -2518,8 +2686,11 @@ function handleSaveRoadmap() {
       var formLinkPengabdian = document.getElementById('formInputLinkPengabdian'); if (formLinkPengabdian) formLinkPengabdian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveLinkPengabdian(); });
       var formEvalPengabdian = document.getElementById('formEvaluasiPengabdian'); if (formEvalPengabdian) formEvalPengabdian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveEvaluasiPengabdian(); });
 
-      // Listener Laporan Monev
-      var formAddMonev = document.getElementById('formAddMonev'); if (formAddMonev) formAddMonev.addEventListener('submit', function(e) { e.preventDefault(); handleAddMonev(); });
+    // Listener Laporan Monev
+      var formAddMonev = document.getElementById('formAddMonev'); if (formAddMonev) formAddMonev.addEventListener('submit', function(e) { e.preventDefault(); handleAddMonev(); });
+
+      // Listener Laporan Tindak Lanjut
+      var formAddTindakLanjut = document.getElementById('formAddTindakLanjut'); if (formAddTindakLanjut) formAddTindakLanjut.addEventListener('submit', function(e) { e.preventDefault(); handleAddTindakLanjut(); });
 
       // Auto Kalkulasi Persentase Ya & Tidak di form GKM
       document.getElementById('inputYaPercent').addEventListener('input', function() {
