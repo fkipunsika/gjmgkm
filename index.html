@@ -226,10 +226,11 @@
         <a class="nav-item-custom active" onclick="showPage('pengajaran', this)"><i class="fa-solid fa-chalkboard-user fa-fw"></i> Pengajaran</a>
         <a class="nav-item-custom" onclick="showPage('penelitian', this)"><i class="fa-solid fa-microscope fa-fw"></i> Penelitian</a>
        <a class="nav-item-custom" onclick="showPage('pengabdian', this)"><i class="fa-solid fa-hands-holding-child fa-fw"></i> Pengabdian</a>
-        <a class="nav-item-custom" onclick="showPage('monev', this)"><i class="fa-solid fa-file-invoice fa-fw"></i> Laporan Monev</a>
-        <a class="nav-item-custom" onclick="showPage('tindaklanjut', this)"><i class="fa-solid fa-file-signature fa-fw"></i> Laporan Tindak Lanjut</a>
-        
-        <div class="mt-auto px-3 pb-3">
+      <a class="nav-item-custom" onclick="showPage('monev', this)"><i class="fa-solid fa-file-invoice fa-fw"></i> Laporan Monev</a>
+        <a class="nav-item-custom" onclick="showPage('tindaklanjut', this)"><i class="fa-solid fa-file-signature fa-fw"></i> Laporan Tindak Lanjut</a>
+        <a class="nav-item-custom" onclick="showPage('dokumenmonitoring', this)"><i class="fa-solid fa-folder-tree fa-fw"></i> Dokumen Hasil Monitoring</a>
+        
+        <div class="mt-auto px-3 pb-3">
           <div class="card border-0 bg-light">
             <div class="card-body p-3">
               <div class="d-flex align-items-center gap-2 mb-3">
@@ -731,7 +732,70 @@
           </div>
 
         </div>
-    
+    <div id="page-dokumenmonitoring" class="page-section d-none">
+          <div class="row align-items-end mb-3 g-3">
+            <div class="col-md-3">
+              <label class="form-label small fw-semibold text-muted mb-1">Tahun Akademik</label>
+              <select class="form-select" id="filterTADokumen" onchange="fetchDokumenMonitoringData()">
+                <option value="2023/2024">2023/2024</option>
+                <option value="2024/2025" selected>2024/2025</option>
+                <option value="2025/2026">2025/2026</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label small fw-semibold text-muted mb-1">Semester</label>
+              <select class="form-select" id="filterSemesterDokumen" onchange="fetchDokumenMonitoringData()">
+                <option value="Gasal" selected>Gasal</option>
+                <option value="Genap">Genap</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-folder-tree me-2 text-primary"></i>Dokumen Hasil Monitoring</h5>
+          </div>
+
+          <div id="containerAddDokumenMonitoring" class="card border-0 shadow-sm rounded-3 mb-4 bg-white" style="display:none;">
+            <div class="card-body p-3">
+              <div class="alert alert-info py-2 small mb-3">
+                <i class="fa-solid fa-cloud-arrow-up me-1"></i> File yang diupload akan otomatis tersimpan di folder Google Drive GJM.
+              </div>
+              <form id="formAddDokumenMonitoring" class="row g-3 align-items-end">
+                <div class="col-md-5">
+                  <label class="form-label small fw-semibold text-muted mb-1">Judul Dokumen</label>
+                  <input type="text" id="inputJudulDokumen" class="form-control" placeholder="Contoh: Hasil Monitoring Gasal 2024..." required>
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label small fw-semibold text-muted mb-1">Pilih File (PDF/Doc/dll)</label>
+                  <input type="file" id="inputFileDokumen" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                  <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-upload me-1"></i>Upload</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center" width="5%">No.</th>
+                      <th width="45%">Judul Dokumen</th>
+                      <th class="text-center" width="20%">Link Berkas</th>
+                      <th class="text-center" width="20%">Tanggal Diupload</th>
+                      <th class="text-center" width="10%">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dokumenMonitoringTableBody">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
   <!-- MODAL: INPUT LINK & YA/TIDAK (GKM) -->
   <div class="modal fade" id="modalInputLink" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
@@ -997,10 +1061,13 @@
    // State untuk Laporan Monev
     var dbMonev = [];
 
-    // State untuk Laporan Tindak Lanjut
-    var dbTindakLanjut = [];
-    
-    // List Prodi
+   // State untuk Laporan Tindak Lanjut
+    var dbTindakLanjut = [];
+    
+    // State untuk Dokumen Hasil Monitoring
+    var dbDokumenMonitoring = [];
+    
+    // List Prodi
     const prodiList = [
       { name: 'Pend. Matematika (S1)', icon: 'fa-square-root-variable' },
       { name: 'Pend. Luar Sekolah (S1)', icon: 'fa-school' },
@@ -1067,7 +1134,7 @@
     // CORE HELPERS
     // ==========================================
     // ⚠️ PENTING: Ganti tulisan URL_WEBAPP_ANDA_DISINI dengan link WebApp Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyoMWSeyejjDeZMciDVmIr8Tju0yLE9CdX8LNzOPIfqIVpnk__KAgEkkO0KRIySCQaz/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2qpCvLfD88X3Y3upmJRkUv2VPvWS9eDj5_IfyASKkvRe7U5Gk0NlweMpCOxoCRa4/exec';
 
     function gasRun(funcName) {
       var args = Array.prototype.slice.call(arguments, 1);
@@ -1214,10 +1281,14 @@ function checkLoginState() {
            var formAddMonev = document.getElementById('containerAddMonev');
            if(formAddMonev) formAddMonev.style.display = 'none';
            
-           // Hide form Tindak Lanjut from Admin
-           var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
-           if(formAddTindakLanjut) formAddTindakLanjut.style.display = 'none';
-        } else {
+          // Hide form Tindak Lanjut from Admin
+           var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
+           if(formAddTindakLanjut) formAddTindakLanjut.style.display = 'none';
+
+           // Show form Dokumen Monitoring for Admin (GJM)
+           var formAddDokumen = document.getElementById('containerAddDokumenMonitoring');
+           if(formAddDokumen) formAddDokumen.style.display = 'block';
+        } else {
            if(formAddMK) formAddMK.style.display = 'block';
            if(inputSKDekan) inputSKDekan.readOnly = false;
            if(btnSaveSK) btnSaveSK.style.display = 'inline-block';
@@ -1264,11 +1335,15 @@ function checkLoginState() {
           var formAddMonev = document.getElementById('containerAddMonev');
            if(formAddMonev) formAddMonev.style.display = 'block';
            
-           var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
-           if(formAddTindakLanjut) formAddTindakLanjut.style.display = 'block';
-        }
+          var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
+           if(formAddTindakLanjut) formAddTindakLanjut.style.display = 'block';
 
-        if (!currentProdi) {
+           // Hide form Dokumen Monitoring for Staff (GKM)
+           var formAddDokumen = document.getElementById('containerAddDokumenMonitoring');
+           if(formAddDokumen) formAddDokumen.style.display = 'none';
+        }
+
+        if (!currentProdi) {
           loginPage.classList.add('d-none');
           prodiPage.classList.remove('d-none');
           mainApp.classList.add('d-none');
@@ -1330,7 +1405,7 @@ function checkLoginState() {
       var targetPage = document.getElementById('page-' + pageName);
       if (targetPage) targetPage.classList.remove('d-none');
 
-    var titles = { 'pengajaran': 'Manajemen Pengajaran', 'penelitian': 'Manajemen Penelitian', 'pengabdian': 'Manajemen Pengabdian', 'monev': 'Laporan Monev', 'tindaklanjut': 'Laporan Tindak Lanjut' };
+    var titles = { 'pengajaran': 'Manajemen Pengajaran', 'penelitian': 'Manajemen Penelitian', 'pengabdian': 'Manajemen Pengabdian', 'monev': 'Laporan Monev', 'tindaklanjut': 'Laporan Tindak Lanjut', 'dokumenmonitoring': 'Dokumen Hasil Monitoring' };
       document.getElementById('pageTitle').innerText = titles[pageName] || 'Dashboard';
       
       if (window.innerWidth < 992) toggleSidebar();
@@ -1361,10 +1436,12 @@ function checkLoginState() {
         else renderPengabdian();
       } else if (pageName === 'monev') {
         fetchMonevData();
-      } else if (pageName === 'tindaklanjut') {
-        fetchTindakLanjutData();
-      }
-    }
+     } else if (pageName === 'tindaklanjut') {
+        fetchTindakLanjutData();
+      } else if (pageName === 'dokumenmonitoring') {
+        fetchDokumenMonitoringData();
+      }
+    }
 
     function triggerFetchPengajaran() { fetchPengajaranData(); }
 
@@ -2623,6 +2700,131 @@ function handleSaveRoadmap() {
       });
     }
     // ==========================================
+    // LOGIKA DOKUMEN HASIL MONITORING (UPLOAD FILE)
+    // ==========================================
+    function fetchDokumenMonitoringData() {
+      var reqTA = document.getElementById('filterTADokumen').value;
+      var reqSem = document.getElementById('filterSemesterDokumen').value;
+      
+      var tbody = document.getElementById('dokumenMonitoringTableBody');
+      if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted"><span class="spinner-border spinner-border-sm me-2"></span>Memuat Dokumen...</td></tr>';
+      
+      if (typeof google === 'undefined') {
+        setTimeout(function() { dbDokumenMonitoring = []; renderDokumenMonitoring(); }, 500);
+      } else {
+        gasRun('getDokumenMonitoring', currentProdi, reqTA, reqSem).then(function(res) {
+          dbDokumenMonitoring = res.dataDokumen || [];
+          renderDokumenMonitoring();
+        }).catch(function(err) {
+          if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Gagal memuat dokumen monitoring.</td></tr>';
+        });
+      }
+    }
+
+    function renderDokumenMonitoring() {
+      var tbody = document.getElementById('dokumenMonitoringTableBody');
+      if (!tbody) return;
+      
+      if (dbDokumenMonitoring.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Belum ada dokumen yang diupload.</td></tr>';
+        return;
+      }
+      
+      var html = '';
+      dbDokumenMonitoring.forEach(function(item, idx) {
+        var isSyncing = item._isSyncing;
+        var opacity = isSyncing ? 'opacity-50' : '';
+        
+        html += '<tr class="'+opacity+' align-middle">';
+        html += '<td class="text-center">' + (idx + 1) + '</td>';
+        html += '<td class="fw-medium text-dark">' + item.judul_dokumen + '</td>';
+        html += '<td class="text-center"><a href="'+item.link_drive+'" target="_blank" class="btn btn-sm btn-info text-white"><i class="fa-solid fa-file-arrow-down me-1"></i> Buka File</a></td>';
+        html += '<td class="text-center small text-muted">' + item.created_at + '</td>';
+        
+        html += '<td class="text-center">';
+        if (currentUser.role === 'Admin' && !isSyncing) {
+          html += '<button class="btn btn-sm btn-outline-danger py-1 px-2" onclick="handleDeleteDokumenMonitoring('+item.id+')"><i class="fa-solid fa-trash"></i></button>';
+        } else if (currentUser.role === 'Staff') {
+          html += '<span class="text-muted small">-</span>';
+        } else {
+          html += '<span class="spinner-border spinner-border-sm text-secondary"></span>';
+        }
+        html += '</td>';
+        
+        html += '</tr>';
+      });
+      tbody.innerHTML = html;
+    }
+
+    function handleAddDokumenMonitoring() {
+      var judul = document.getElementById('inputJudulDokumen').value.trim();
+      var fileInput = document.getElementById('inputFileDokumen');
+      
+      if (!judul || !fileInput.files.length) return Swal.fire('Oops', 'Judul dan File wajib diisi!', 'warning');
+      
+      var file = fileInput.files[0];
+      var reader = new FileReader();
+      
+      var btn = document.querySelector('#formAddDokumenMonitoring button[type="submit"]');
+      var oldText = btn.innerHTML;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Mengupload...';
+      btn.disabled = true;
+
+      reader.onload = function(e) {
+        var base64Data = e.target.result;
+        
+        var payload = {
+          prodi: currentProdi,
+          ta: document.getElementById('filterTADokumen').value,
+          semester: document.getElementById('filterSemesterDokumen').value,
+          judul_dokumen: judul,
+          fileName: file.name,
+          fileBase64: base64Data
+        };
+        
+        if (typeof google !== 'undefined') {
+          gasRun('addDokumenMonitoring', payload).then(function(res) {
+            btn.innerHTML = oldText; btn.disabled = false;
+            if (res.success) {
+              document.getElementById('formAddDokumenMonitoring').reset();
+              Swal.fire({ icon:'success', title:'Berhasil Upload', toast:true, position:'top-end', showConfirmButton:false, timer:2000 });
+              fetchDokumenMonitoringData();
+            } else {
+              Swal.fire('Error', res.message, 'error');
+            }
+          }).catch(function(err){
+            btn.innerHTML = oldText; btn.disabled = false;
+            Swal.fire('Error', 'Gagal upload dokumen ke Drive', 'error');
+          });
+        } else {
+          setTimeout(function() {
+            btn.innerHTML = oldText; btn.disabled = false;
+            dbDokumenMonitoring.push({ id: Date.now(), judul_dokumen: judul, link_drive: '#', created_at: safeDate(new Date()) });
+            renderDokumenMonitoring();
+            document.getElementById('formAddDokumenMonitoring').reset();
+            Swal.fire({ icon:'success', title:'Upload Simulasi Berhasil', toast:true, position:'top-end', showConfirmButton:false, timer:2000 });
+          }, 1500);
+        }
+      };
+      
+      // Membaca file menjadi text base64
+      reader.readAsDataURL(file);
+    }
+
+    function handleDeleteDokumenMonitoring(id) {
+      Swal.fire({ title: 'Hapus Dokumen?', text: 'File fisik di Google Drive tidak akan terhapus, hanya data di sistem.', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya, hapus'
+      }).then(function(result) {
+        if (!result.isConfirmed) return;
+        
+        dbDokumenMonitoring = dbDokumenMonitoring.filter(function(x) { return String(x.id) !== String(id); });
+        renderDokumenMonitoring();
+        
+        if (typeof google !== 'undefined') {
+          gasRun('deleteDokumenMonitoring', id).then(function(res) { if (!res.success) fetchDokumenMonitoringData(); });
+        }
+      });
+    }
+    // ==========================================
     // AUTHENTICATION FLOW
     // ==========================================
     function handleLogin() {
@@ -2689,10 +2891,13 @@ function handleSaveRoadmap() {
     // Listener Laporan Monev
       var formAddMonev = document.getElementById('formAddMonev'); if (formAddMonev) formAddMonev.addEventListener('submit', function(e) { e.preventDefault(); handleAddMonev(); });
 
-      // Listener Laporan Tindak Lanjut
-      var formAddTindakLanjut = document.getElementById('formAddTindakLanjut'); if (formAddTindakLanjut) formAddTindakLanjut.addEventListener('submit', function(e) { e.preventDefault(); handleAddTindakLanjut(); });
+     // Listener Laporan Tindak Lanjut
+      var formAddTindakLanjut = document.getElementById('formAddTindakLanjut'); if (formAddTindakLanjut) formAddTindakLanjut.addEventListener('submit', function(e) { e.preventDefault(); handleAddTindakLanjut(); });
 
-      // Auto Kalkulasi Persentase Ya & Tidak di form GKM
+      // Listener Dokumen Hasil Monitoring
+      var formAddDokumen = document.getElementById('formAddDokumenMonitoring'); if (formAddDokumen) formAddDokumen.addEventListener('submit', function(e) { e.preventDefault(); handleAddDokumenMonitoring(); });
+
+      // Auto Kalkulasi Persentase Ya & Tidak di form GKM
       document.getElementById('inputYaPercent').addEventListener('input', function() {
           var val = parseInt(this.value);
           if(!isNaN(val) && val <= 100 && val >= 0) document.getElementById('inputTidakPercent').value = 100 - val;
