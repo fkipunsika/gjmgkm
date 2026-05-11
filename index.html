@@ -1144,7 +1144,7 @@
     // CORE HELPERS
     // ==========================================
     // ⚠️ PENTING: Ganti tulisan URL_WEBAPP_ANDA_DISINI dengan link WebApp Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_Vfm4K8SSqjxMWBQWdhx6n8EUkUp2cXiAwtD8x6XuEtalt9dDvEUENX90Zi7aNAJX/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTPW_rzuN_wdwiB1YlW2aaaJsSqWI87tJrL6qDhu3Phv7Fv27XXzFqE4ROmh7dKyk_/exec';
 
     function gasRun(funcName) {
       var args = Array.prototype.slice.call(arguments, 1);
@@ -1797,11 +1797,11 @@ function handleDeleteMK(mkName) {
       }
     }
 
-// ACTION: EXPORT TO PDF
+// ACTION: EXPORT TO PDF (VIA GOOGLE DOCS)
     function exportToPDF() {
       var namaPenilai = document.getElementById('inputNamaPenilai').value.trim();
       var nipNidn = document.getElementById('inputNipNidn').value.trim();
-     
+      
       if (!namaPenilai || !nipNidn) {
          return Swal.fire('Perhatian', 'Silakan isi "Nama Penilai GJM" dan "NIP / NIDN" terlebih dahulu sebelum mengekspor.', 'warning');
       }
@@ -1814,104 +1814,77 @@ function handleDeleteMK(mkName) {
       var prodi = currentProdi || '-';
       var ta = document.getElementById('filterTA').value;
       var semester = document.getElementById('filterSemester').value;
-     
-      var tableContainer = document.querySelector('.table-responsive');
-      if (!tableContainer) return;
-     
-      var tableNode = tableContainer.cloneNode(true);
-     
-      var buttons = tableNode.querySelectorAll('button');
-      buttons.forEach(function(btn) {
-         var prev = btn.previousSibling;
-         if (prev && prev.nodeName === 'BR') prev.remove();
-         var parent = btn.parentElement;
-         btn.remove();
-         if (parent && parent.classList.contains('mt-2') && parent.innerHTML.trim() === '') parent.remove();
-      });
-
-      // LOGIKA KHUSUS: Hapus kolom persentase di PDF jika tab yang aktif adalah Rekap Survey (Proses)
+      
+      // BUAT ARRAY 2D UNTUK DIKIRIM KE GOOGLE DOCS
+      var tableData = [];
       if (activePengajaranTab === 'Proses') {
-         // 1. Hapus judul header kolom paling akhir (Persentase)
-         var theadTr = tableNode.querySelector('thead tr');
-         if (theadTr && theadTr.lastElementChild) {
-             theadTr.removeChild(theadTr.lastElementChild);
-         }
-         
-         // 2. Hapus sel data persentase di baris-baris tabel
-         var tbodyTrs = tableNode.querySelectorAll('tbody tr');
-         tbodyTrs.forEach(function(tr) {
-             var lastTd = tr.lastElementChild;
-             // Ciri khas sel persentase adalah dia mengandung tag h4
-             if (lastTd && lastTd.querySelector('h4')) {
-                 tr.removeChild(lastTd);
-             }
+        tableData.push(['No', 'Mata Kuliah & Model', 'Aspek', 'Ya (%)', 'Tidak (%)', 'Bukti (Link)', 'Kesesuaian', 'Keterangan']);
+      } else {
+        tableData.push(['No', 'Mata Kuliah & Model', 'Aspek', 'Bukti (Link)', 'Kelengkapan', 'Keterangan', 'Persentase']);
+      }
+      
+      var groups = {};
+      filteredData.forEach(function(item) {
+        if (!groups[item.mata_kuliah]) groups[item.mata_kuliah] = [];
+        groups[item.mata_kuliah].push(item);
+      });
+      
+      var mkCount = 1;
+      var indOrder = activePengajaranTab === 'Pra' ? aspekListPra : (activePengajaranTab === 'Proses' ? aspekListProses : aspekListPasca);
+      
+      for (var mk in groups) {
+        var items = groups[mk];
+        items.sort(function(a, b) { return indOrder.indexOf(a.aspek) - indOrder.indexOf(b.aspek); });
+        
+        var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap' || i.kelengkapan === 'Sesuai'; }).length;
+        var persentase = Math.round((countLengkap / indOrder.length) * 100) + '%';
+
+        items.forEach(function(item, idx) {
+          var row = [];
+          // Kosongkan sel rowspan jika bukan baris pertama dari mata kuliah tersebut
+          var noStr = (idx === 0) ? String(mkCount) : '';
+          var mkStr = (idx === 0) ? (mk + '\nSem MK: ' + (item.semester_mk||'-') + '\n(' + (item.model_pembelajaran||'-') + ')') : '';
+          var pctStr = (idx === 0) ? persentase : '';
+          
+          if (activePengajaranTab === 'Proses') {
+             row = [noStr, mkStr, item.aspek, (item.ya_percent ? item.ya_percent+'%' : '-'), (item.tidak_percent ? item.tidak_percent+'%' : '-'), (item.link || '-'), (item.kelengkapan || '-'), (item.keterangan || '-')];
+          } else {
+             row = [noStr, mkStr, item.aspek, (item.link || '-'), (item.kelengkapan || '-'), (item.keterangan || '-'), pctStr];
+          }
+          tableData.push(row);
+        });
+        mkCount++;
+      }
+      
+      var payload = {
+         reportType: activePengajaranTab, // Mengirim 'Pra', 'Proses', atau 'Pasca'
+         prodi: prodi,
+         ta: ta,
+         semester: semester,
+         nama_penilai: namaPenilai,
+         nip_nidn: nipNidn,
+         tableData: tableData
+      };
+      
+      showFullPageLoading('Men-generate PDF via Google Docs... Mohon tunggu.');
+      
+      if (typeof google !== 'undefined') {
+         gasRun('generatePDFViaDocs', payload).then(function(res) {
+            hideFullPageLoading();
+            if (res.success) {
+               Swal.fire({
+                 icon: 'success', title: 'PDF Berhasil Dibuat',
+                 html: 'Laporan berhasil di-generate.<br><br><a href="'+res.link+'" target="_blank" class="btn btn-primary mt-2"><i class="fa-solid fa-download me-2"></i>Buka PDF Laporan</a>',
+                 showConfirmButton: false, allowOutsideClick: false
+               });
+            } else {
+               Swal.fire('Error', res.message, 'error');
+            }
+         }).catch(function(err) {
+            hideFullPageLoading();
+            Swal.fire('Error', 'Gagal memproses pembuatan PDF di server', 'error');
          });
       }
-
-      var wrapper = document.createElement('div');
-      wrapper.style.padding = '20px';
-      wrapper.style.fontFamily = 'sans-serif';
-      wrapper.style.color = '#333';
-     
-      var today = new Date();
-      var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-      var dateString = today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
-
-      // Penentuan Judul Laporan secara spesifik sesuai fase yang aktif
-      var pdfTitle = "";
-      if (activePengajaranTab === 'Pra') {
-          pdfTitle = "LAPORAN HASIL MONITORING AWAL PEMBELAJARAN";
-      } else if (activePengajaranTab === 'Proses') {
-          pdfTitle = "LAPORAN HASIL MONITORING REKAP SURVEY PROSES PEMBELAJARAN";
-      } else if (activePengajaranTab === 'Pasca') {
-          pdfTitle = "LAPORAN HASIL MONITORING AKHIR PEMBELAJARAN";
-      }
-
-      wrapper.innerHTML = `
-        <div style="text-align: center; margin-bottom: 20px;">
-          <h4 style="font-weight: bold; margin-bottom: 5px;">${pdfTitle}</h4>
-          <p style="margin: 0; font-size: 14px;">Program Studi: <b>${prodi}</b></p>
-          <p style="margin: 0; font-size: 14px;">Tahun Akademik: <b>${ta}</b> | Semester: <b>${semester}</b></p>
-        </div>
-        ${tableNode.outerHTML}
-       
-        <table style="width: 100%; margin-top: 40px; page-break-inside: avoid; font-size: 14px; border: none; background: transparent;">
-          <tr>
-            <td style="width: 50%; text-align: center; border: none; padding-bottom: 30px;">
-              <p style="margin: 0;">&nbsp;</p>
-              <p style="margin: 0;">Ketua GJM FKIP,</p>
-              <br><br><br>
-              <p style="margin: 0; font-weight: bold; text-decoration: underline;">Dr. Kiki Nia Sania Effendi</p>
-              <p style="margin: 0;">NIP. 198811092021212001</p>
-            </td>
-            <td style="width: 50%; text-align: center; border: none; padding-bottom: 30px;">
-              <p style="margin: 0;">Karawang, ${dateString}</p>
-              <p style="margin: 0;">Pelaksana Monitoring,</p>
-              <br><br><br>
-              <p style="margin: 0; font-weight: bold; text-decoration: underline;">${namaPenilai}</p>
-              <p style="margin: 0;">NIP/NIDN. ${nipNidn}</p>
-            </td>
-        
-          </tr>
-        </table>
-      `;
-
-      var opt = {
-        margin:       0.3,
-        filename:     'Laporan_' + activePengajaranTab + '_' + prodi.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'in', format: 'a4', orientation: 'landscape' }
-      };
-
-      showFullPageLoading('Menyiapkan PDF...');
-      html2pdf().set(opt).from(wrapper).save().then(function() {
-        hideFullPageLoading();
-        Swal.fire({ icon:'success', title:'PDF Berhasil Diunduh', toast:true, position:'top-end', showConfirmButton:false, timer:2000 });
-      }).catch(function(err) {
-        hideFullPageLoading();
-        Swal.fire('Error', 'Gagal membuat PDF', 'error');
-      });
     }
 // ==========================================
     // LOGIKA PENELITIAN
@@ -2136,100 +2109,61 @@ function handleSaveRoadmap() {
       var m = bootstrap.Modal.getInstance(document.getElementById('modalEvaluasiPenelitian')); if(m) m.hide();
       if (typeof google !== 'undefined') gasRun('updateEvaluasiPenelitian', {id:id, kelengkapan:newKel, keterangan:newKet}).then(function(res){ if(res.success) fetchPenelitianData(true); });
     }
-    // ACTION: EXPORT PENELITIAN TO PDF
+    // ACTION: EXPORT PENELITIAN TO PDF (VIA GOOGLE DOCS)
     function exportPenelitianToPDF() {
       var namaPenilai = document.getElementById('inputNamaPenilaiPenelitian').value.trim();
       var nipNidn = document.getElementById('inputNipNidnPenelitian').value.trim();
       
-      if (!namaPenilai || !nipNidn) {
-         return Swal.fire('Perhatian', 'Silakan isi "Nama Penilai GJM" dan "NIP / NIDN" terlebih dahulu sebelum mengekspor.', 'warning');
-      }
+      if (!namaPenilai || !nipNidn) { return Swal.fire('Perhatian', 'Silakan isi "Nama Penilai GJM" dan "NIP / NIDN".', 'warning'); }
+      if (dbPenelitian.length === 0) { return Swal.fire('Perhatian', 'Tidak ada data penelitian untuk diekspor.', 'warning'); }
 
-      if (dbPenelitian.length === 0) {
-         return Swal.fire('Perhatian', 'Tidak ada data untuk diekspor pada fase ini.', 'warning');
-      }
-
-      var prodi = currentProdi || '-';
-      var ta = document.getElementById('filterTAPenelitian').value;
-      var semester = document.getElementById('filterSemesterPenelitian').value;
+      var tableData = [];
+      tableData.push(['No.', 'Informasi Penelitian', 'Aspek', 'Ketersediaan', 'Bukti (Link)', 'Kelengkapan', 'Keterangan', 'Persentase']);
       
-      var tableContainer = document.querySelector('#page-penelitian .table-responsive');
-      if (!tableContainer) return;
-      
-      var tableNode = tableContainer.cloneNode(true);
-
-      // FIX PDF TERPOTONG: Izinkan teks turun ke bawah dan set lebar 100% khusus saat ekspor
-      var tableElement = tableNode.querySelector('table');
-      if (tableElement) {
-         tableElement.classList.remove('text-nowrap');
-         tableElement.style.minWidth = '100%';
-         tableElement.style.width = '100%';
-         tableElement.style.fontSize = '12px'; // Perkecil font sedikit agar 8 kolom muat rapi
-      }
-      
-      var buttons = tableNode.querySelectorAll('button');
-      buttons.forEach(function(btn) {
-         var prev = btn.previousSibling;
-         if (prev && prev.nodeName === 'BR') prev.remove();
-         var parent = btn.parentElement;
-         btn.remove();
-         if (parent && parent.classList.contains('mt-2') && parent.innerHTML.trim() === '') parent.remove();
+      var groups = {};
+      dbPenelitian.forEach(function(item) {
+        var key = item.judul + '|' + item.nama_ketua;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(item);
       });
 
-      var wrapper = document.createElement('div');
-      wrapper.style.padding = '20px';
-      wrapper.style.fontFamily = 'sans-serif';
-      wrapper.style.color = '#333';
-      
-      var today = new Date();
-      var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-      var dateString = today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
-
-      wrapper.innerHTML = `
-        <div style="text-align: center; margin-bottom: 20px;">
-          <h4 style="font-weight: bold; margin-bottom: 5px;">LAPORAN HASIL MONITORING PENELITIAN DOSEN</h4>
-          <p style="margin: 0; font-size: 14px;">Program Studi: <b>${prodi}</b></p>
-          <p style="margin: 0; font-size: 14px;">Tahun Akademik: <b>${ta}</b> | Semester: <b>${semester}</b></p>
-        </div>
-        ${tableNode.outerHTML}
+      var noCount = 1;
+      for (var key in groups) {
+        var items = groups[key];
+        items.sort(function(a, b) { return aspekListPenelitian.indexOf(a.aspek) - aspekListPenelitian.indexOf(b.aspek); });
         
-        <table style="width: 100%; margin-top: 40px; page-break-inside: avoid; font-size: 14px; border: none; background: transparent;">
-          <tr>
-            <td style="width: 50%; text-align: center; border: none; padding-bottom: 30px;">
-              <p style="margin: 0;">&nbsp;</p>
-              <p style="margin: 0;">Ketua GJM FKIP,</p>
-              <br><br><br>
-              <p style="margin: 0; font-weight: bold; text-decoration: underline;">Dr. Kiki Nia Sania Effendi</p>
-              <p style="margin: 0;">NIP. 198811092021212001</p>
-            </td>
-            <td style="width: 50%; text-align: center; border: none; padding-bottom: 30px;">
-              <p style="margin: 0;">Karawang, ${dateString}</p>
-              <p style="margin: 0;">Pelaksana Monitoring,</p>
-              <br><br><br>
-              <p style="margin: 0; font-weight: bold; text-decoration: underline;">${namaPenilai}</p>
-              <p style="margin: 0;">NIP/NIDN. ${nipNidn}</p>
-            </td>
-         
-          </tr>
-        </table>
-      `;
+        var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap'; }).length;
+        var persentase = Math.round((countLengkap / aspekListPenelitian.length) * 100) + '%';
 
-      var opt = {
-        margin:       0.3,
-        filename:     'Laporan_Penelitian_' + prodi.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'in', format: 'a4', orientation: 'landscape' }
+        items.forEach(function(item, idx) {
+          var noStr = (idx === 0) ? String(noCount) : '';
+          var infoStr = '';
+          if (idx === 0) {
+             var infoSumber = item.sumber_dana + (item.sumber_dana === 'Eksternal' ? ' ('+item.sumber_dana_eksternal+')' : '');
+             infoStr = item.judul + '\nKetua: ' + item.nama_ketua + ' (' + item.kepakaran + ')\nTahun: ' + item.tahun_penelitian + '\nDana: Rp ' + item.besaran_dana + ' - ' + infoSumber;
+          }
+          var pctStr = (idx === 0) ? persentase : '';
+          
+          tableData.push([noStr, infoStr, item.aspek, (item.ketersediaan||'-'), (item.link||'-'), (item.kelengkapan||'-'), (item.keterangan||'-'), pctStr]);
+        });
+        noCount++;
+      }
+      
+      var payload = {
+         reportType: 'Penelitian', 
+         prodi: currentProdi || '-', ta: document.getElementById('filterTAPenelitian').value, semester: document.getElementById('filterSemesterPenelitian').value,
+         nama_penilai: namaPenilai, nip_nidn: nipNidn, tableData: tableData
       };
-
-      showFullPageLoading('Menyiapkan PDF...');
-      html2pdf().set(opt).from(wrapper).save().then(function() {
-        hideFullPageLoading();
-        Swal.fire({ icon:'success', title:'PDF Berhasil Diunduh', toast:true, position:'top-end', showConfirmButton:false, timer:2000 });
-      }).catch(function(err) {
-        hideFullPageLoading();
-        Swal.fire('Error', 'Gagal membuat PDF', 'error');
-      });
+      
+      showFullPageLoading('Men-generate PDF via Google Docs... Mohon tunggu.');
+      if (typeof google !== 'undefined') {
+         gasRun('generatePDFViaDocs', payload).then(function(res) {
+            hideFullPageLoading();
+            if (res.success) {
+               Swal.fire({ icon: 'success', title: 'PDF Berhasil Dibuat', html: '<a href="'+res.link+'" target="_blank" class="btn btn-primary mt-2"><i class="fa-solid fa-download me-2"></i>Buka PDF Laporan</a>', showConfirmButton: false, allowOutsideClick: false });
+            } else { Swal.fire('Error', res.message, 'error'); }
+         }).catch(function(err) { hideFullPageLoading(); Swal.fire('Error', 'Gagal memproses di server', 'error'); });
+      }
     }
     // ==========================================
 // LOGIKA PENGABDIAN
@@ -2458,70 +2392,61 @@ function handleSaveRoadmap() {
       if (typeof google !== 'undefined') gasRun('updateEvaluasiPengabdian', {id:id, kelengkapan:newKel, keterangan:newKet}).then(function(res){ if(res.success) fetchPengabdianData(true); });
     }
 
+    // ACTION: EXPORT PENGABDIAN TO PDF (VIA GOOGLE DOCS)
     function exportPengabdianToPDF() {
       var namaPenilai = document.getElementById('inputNamaPenilaiPengabdian').value.trim();
       var nipNidn = document.getElementById('inputNipNidnPengabdian').value.trim();
       
-      if (!namaPenilai || !nipNidn) { return Swal.fire('Perhatian', 'Silakan isi "Nama Penilai GJM" dan "NIP / NIDN" terlebih dahulu.', 'warning'); }
-      if (dbPengabdian.length === 0) { return Swal.fire('Perhatian', 'Tidak ada data untuk diekspor.', 'warning'); }
+      if (!namaPenilai || !nipNidn) { return Swal.fire('Perhatian', 'Silakan isi "Nama Penilai GJM" dan "NIP / NIDN".', 'warning'); }
+      if (dbPengabdian.length === 0) { return Swal.fire('Perhatian', 'Tidak ada data pengabdian untuk diekspor.', 'warning'); }
 
-      var prodi = currentProdi || '-';
-      var ta = document.getElementById('filterTAPengabdian').value;
-      var semester = document.getElementById('filterSemesterPengabdian').value;
+      var tableData = [];
+      tableData.push(['No.', 'Informasi Pengabdian', 'Aspek', 'Ketersediaan', 'Bukti (Link)', 'Kelengkapan', 'Keterangan', 'Persentase']);
       
-      var tableContainer = document.querySelector('#page-pengabdian .table-responsive');
-      if (!tableContainer) return;
-      var tableNode = tableContainer.cloneNode(true);
-
-      var tableElement = tableNode.querySelector('table');
-      if (tableElement) {
-         tableElement.classList.remove('text-nowrap');
-         tableElement.style.minWidth = '100%'; tableElement.style.width = '100%'; tableElement.style.fontSize = '12px';
-      }
-      
-      var buttons = tableNode.querySelectorAll('button');
-      buttons.forEach(function(btn) {
-         var prev = btn.previousSibling; if (prev && prev.nodeName === 'BR') prev.remove();
-         var parent = btn.parentElement; btn.remove();
-         if (parent && parent.classList.contains('mt-2') && parent.innerHTML.trim() === '') parent.remove();
+      var groups = {};
+      dbPengabdian.forEach(function(item) {
+        var key = item.judul + '|' + item.nama_ketua;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(item);
       });
 
-      var wrapper = document.createElement('div');
-      wrapper.style.padding = '20px'; wrapper.style.fontFamily = 'sans-serif'; wrapper.style.color = '#333';
-      
-      var today = new Date(); var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-      var dateString = today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
-
-      wrapper.innerHTML = `
-        <div style="text-align: center; margin-bottom: 20px;">
-          <h4 style="font-weight: bold; margin-bottom: 5px;">LAPORAN HASIL MONITORING PENGABDIAN DOSEN</h4>
-          <p style="margin: 0; font-size: 14px;">Program Studi: <b>${prodi}</b></p>
-          <p style="margin: 0; font-size: 14px;">Tahun Akademik: <b>${ta}</b> | Semester: <b>${semester}</b></p>
-        </div>
-        ${tableNode.outerHTML}
+      var noCount = 1;
+      for (var key in groups) {
+        var items = groups[key];
+        items.sort(function(a, b) { return aspekListPengabdian.indexOf(a.aspek) - aspekListPengabdian.indexOf(b.aspek); });
         
-        <table style="width: 100%; margin-top: 40px; page-break-inside: avoid; font-size: 14px; border: none; background: transparent;">
-          <tr>
-            <td style="width: 50%; text-align: center; border: none; padding-bottom: 30px;">
-              <p style="margin: 0;">&nbsp;</p>
-              <p style="margin: 0;">Ketua GJM FKIP,</p><br><br><br>
-              <p style="margin: 0; font-weight: bold; text-decoration: underline;">Dr. Kiki Nia Sania Effendi</p>
-              <p style="margin: 0;">NIP. 198811092021212001</p>
-            </td>
-            <td style="width: 50%; text-align: center; border: none; padding-bottom: 30px;">
-              <p style="margin: 0;">Karawang, ${dateString}</p>
-              <p style="margin: 0;">Pelaksana Monitoring,</p><br><br><br>
-              <p style="margin: 0; font-weight: bold; text-decoration: underline;">${namaPenilai}</p>
-              <p style="margin: 0;">NIP/NIDN. ${nipNidn}</p>
-            </td>
-         
-          </tr>
-        </table>
-      `;
+        var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap'; }).length;
+        var persentase = Math.round((countLengkap / aspekListPengabdian.length) * 100) + '%';
 
-      var opt = { margin: 0.3, filename: 'Laporan_Pengabdian_' + prodi.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' } };
-      showFullPageLoading('Menyiapkan PDF...');
-      html2pdf().set(opt).from(wrapper).save().then(function() { hideFullPageLoading(); Swal.fire({ icon:'success', title:'PDF Berhasil Diunduh', toast:true, position:'top-end', showConfirmButton:false, timer:2000 }); }).catch(function(err) { hideFullPageLoading(); Swal.fire('Error', 'Gagal membuat PDF', 'error'); });
+        items.forEach(function(item, idx) {
+          var noStr = (idx === 0) ? String(noCount) : '';
+          var infoStr = '';
+          if (idx === 0) {
+             var infoSumber = item.sumber_dana + (item.sumber_dana === 'Eksternal' ? ' ('+item.sumber_dana_eksternal+')' : '');
+             infoStr = item.judul + '\nKetua: ' + item.nama_ketua + ' (' + item.kepakaran + ')\nTahun: ' + item.tahun_pengabdian + '\nDana: Rp ' + item.besaran_dana + ' - ' + infoSumber;
+          }
+          var pctStr = (idx === 0) ? persentase : '';
+          
+          tableData.push([noStr, infoStr, item.aspek, (item.ketersediaan||'-'), (item.link||'-'), (item.kelengkapan||'-'), (item.keterangan||'-'), pctStr]);
+        });
+        noCount++;
+      }
+      
+      var payload = {
+         reportType: 'Pengabdian', 
+         prodi: currentProdi || '-', ta: document.getElementById('filterTAPengabdian').value, semester: document.getElementById('filterSemesterPengabdian').value,
+         nama_penilai: namaPenilai, nip_nidn: nipNidn, tableData: tableData
+      };
+      
+      showFullPageLoading('Men-generate PDF via Google Docs... Mohon tunggu.');
+      if (typeof google !== 'undefined') {
+         gasRun('generatePDFViaDocs', payload).then(function(res) {
+            hideFullPageLoading();
+            if (res.success) {
+               Swal.fire({ icon: 'success', title: 'PDF Berhasil Dibuat', html: '<a href="'+res.link+'" target="_blank" class="btn btn-primary mt-2"><i class="fa-solid fa-download me-2"></i>Buka PDF Laporan</a>', showConfirmButton: false, allowOutsideClick: false });
+            } else { Swal.fire('Error', res.message, 'error'); }
+         }).catch(function(err) { hideFullPageLoading(); Swal.fire('Error', 'Gagal memproses di server', 'error'); });
+      }
     }
   // ==========================================
 // LOGIKA LAPORAN MONEV
