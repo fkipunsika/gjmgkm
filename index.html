@@ -16,8 +16,10 @@
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
   <!-- HTML2PDF Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 
   <style>
     :root {
@@ -156,21 +158,23 @@
 </head>
 <body>
 
+
   <!-- TIER 1 LOADING: Full Page Overlay -->
   <div id="fullPageLoader" style="display:none; position:fixed; inset:0; background:rgba(255,255,255,0.9); z-index:9999; justify-content:center; align-items:center; flex-direction:column; backdrop-filter:blur(4px);">
     <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
     <p class="mt-3 fw-semibold small text-muted" id="fullPageLoadingText">MENGHUBUNGKAN...</p>
   </div>
 
+
   <!-- PHASE 1: LOGIN PAGE -->
   <div id="loginPage" class="login-container d-none">
     <div class="card card-login border-0 bg-white">
       <div class="card-body p-4 p-md-5">
        <div class="text-center mb-4">
-      <div class="mb-3">
-            <img src="https://i.ibb.co.com/mrSrSwkX/Whats-App-Image-2026-05-07-at-17-24-02.jpg" alt="Logo" style="width: 350px; max-width: 100%; height: auto; border-radius: 10px; object-fit: contain;">
-          </div>
-          <h4 class="fw-bold mb-1">GJM & GKM</h4>
+      <div class="mb-3">
+            <img src="https://i.ibb.co.com/mrSrSwkX/Whats-App-Image-2026-05-07-at-17-24-02.jpg" alt="Logo" style="width: 350px; max-width: 100%; height: auto; border-radius: 10px; object-fit: contain;">
+          </div>
+          <h4 class="fw-bold mb-1">GJM & GKM</h4>
           <p class="text-muted small mb-2">FKIP UNSIKA</p>
          
         </div>
@@ -194,6 +198,7 @@
     </div>
   </div>
 
+
   <!-- PHASE 2: PRODI SELECTION PAGE (HANYA ADMIN GJM) -->
   <div id="prodiPage" class="d-none" style="min-height: 100vh; background-color: var(--bg-light);">
     <div class="container py-5">
@@ -210,24 +215,25 @@
     </div>
   </div>
 
+
   <!-- PHASE 3: MAIN APP -->
   <div id="mainApp" class="wrapper d-none">
     <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
     
     <!-- Sidebar -->
     <aside class="sidebar shadow-sm">
-      <div class="sidebar-header">
-        <div class="d-flex align-items-center justify-content-center gap-2">
-          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjUwkzupRMkM4AtW0C_jaXyM1WFPomSyDf5MYU3s_0dxf5LQyE7qX3e8zFI6Q6bQzXovkYnLDlwOcYzP2s_Gdtef-nm4ugjbZjplcitJgvCzK8AL4qBRxILj73FSHIMn30CTvceuyGNcPTlps4AlXAZ8Vyk7hPsp6kcBdHWkLFBb1jUJMruTb063GQwgp39/s320/logo-unsika-1.png" alt="Logo" style="width: 35px; height: auto;">
-          <h5 class="fw-bold mb-0 text-primary">GJM FKIP</h5>
-        </div>
-        <div class="mt-2 text-muted" style="font-size: 0.75rem;" id="displayProdiSidebar"></div>
-      </div>
+      <div class="sidebar-header">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjUwkzupRMkM4AtW0C_jaXyM1WFPomSyDf5MYU3s_0dxf5LQyE7qX3e8zFI6Q6bQzXovkYnLDlwOcYzP2s_Gdtef-nm4ugjbZjplcitJgvCzK8AL4qBRxILj73FSHIMn30CTvceuyGNcPTlps4AlXAZ8Vyk7hPsp6kcBdHWkLFBb1jUJMruTb063GQwgp39/s320/logo-unsika-1.png" alt="Logo" style="width: 35px; height: auto;">
+          <h5 class="fw-bold mb-0 text-primary">GJM FKIP</h5>
+        </div>
+        <div class="mt-2 text-muted" style="font-size: 0.75rem;" id="displayProdiSidebar"></div>
+      </div>
      <div class="d-flex flex-column h-100 py-3">
-        <a class="nav-item-custom active" onclick="showPage('pengajaran', this)"><i class="fa-solid fa-chalkboard-user fa-fw"></i> Pengajaran</a>
-        <a class="nav-item-custom" onclick="showPage('penelitian', this)"><i class="fa-solid fa-microscope fa-fw"></i> Penelitian</a>
-       <a class="nav-item-custom" onclick="showPage('pengabdian', this)"><i class="fa-solid fa-hands-holding-child fa-fw"></i> Pengabdian</a>
-      <a class="nav-item-custom" onclick="showPage('monev', this)"><i class="fa-solid fa-file-invoice fa-fw"></i> Laporan Monev</a>
+        <a class="nav-item-custom active" onclick="showPage('pengajaran', this)"><i class="fa-solid fa-chalkboard-user fa-fw"></i> Pengajaran</a>
+        <a class="nav-item-custom" onclick="showPage('penelitian', this)"><i class="fa-solid fa-microscope fa-fw"></i> Penelitian</a>
+       <a class="nav-item-custom" onclick="showPage('pengabdian', this)"><i class="fa-solid fa-hands-holding-child fa-fw"></i> Pengabdian</a>
+      <a class="nav-item-custom" onclick="showPage('monev', this)"><i class="fa-solid fa-file-invoice fa-fw"></i> Laporan Monev</a>
         <a class="nav-item-custom" onclick="showPage('tindaklanjut', this)"><i class="fa-solid fa-file-signature fa-fw"></i> Laporan Tindak Lanjut</a>
         <a class="nav-item-custom" onclick="showPage('dokumenmonitoring', this)"><i class="fa-solid fa-folder-tree fa-fw"></i> Dokumen Hasil Monitoring</a>
         
@@ -255,6 +261,7 @@
       </div>
     </aside>
 
+
     <!-- Main Content Area -->
     <main class="main-content">
       <!-- Topbar -->
@@ -268,6 +275,7 @@
         </div>
       </header>
 
+
       <!-- Content Body -->
       <div class="content-body">
         
@@ -280,11 +288,11 @@
               <label class="form-label small fw-semibold text-muted mb-1">Tahun Akademik</label>
               <select class="form-select" id="filterTA" onchange="triggerFetchPengajaran()">
                 <option value="2023/2024">2023/2024</option>
-                <option value="2024/2025" selected>2024/2025</option>
-                <option value="2025/2026">2025/2026</option>
-                <option value="2026/2027">2026/2027</option>
-                <option value="2027/2028">2027/2028</option>
-                <option value="2028/2029">2028/2029</option>
+                <option value="2024/2025" selected>2024/2025</option>
+                <option value="2025/2026">2025/2026</option>
+                <option value="2026/2027">2026/2027</option>
+                <option value="2027/2028">2027/2028</option>
+                <option value="2028/2029">2028/2029</option>
               </select>
             </div>
             <div class="col-md-3">
@@ -295,6 +303,7 @@
               </select>
             </div>
           </div>
+
 
           <!-- Section: Input SK Dekan -->
           <div class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
@@ -314,6 +323,7 @@
               </div>
             </div>
           </div>
+
 
           <!-- Section: Tabs Pra / Proses / Pasca & Export PDF -->
 <div class="d-flex flex-column flex-xl-row justify-content-between align-items-xl-end mb-3 gap-3" style="border-bottom: 1px solid #dee2e6;">
@@ -336,28 +346,30 @@
             </div>
           </div>
 
+
           <!-- Form Tambah MK (Hanya GKM) -->
           <div id="containerAddMK" class="card border-0 shadow-sm rounded-3 mb-3 bg-white">
             <div class="card-body p-3">
               <form id="formAddMK" class="row g-2 align-items-end">
-                <div class="col-md-4">
-                  <label class="form-label small fw-semibold text-muted mb-1">Mata Kuliah Baru</label>
-                  <input type="text" id="inputMK" class="form-control" placeholder="Nama Mata Kuliah..." required>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label small fw-semibold text-muted mb-1">Model Pembelajaran</label>
-                  <input type="text" id="inputModel" class="form-control" placeholder="PBL / PJBL..." required>
-                </div>
-                <div class="col-md-2">
-                  <label class="form-label small fw-semibold text-muted mb-1">Semester</label>
-                  <input type="number" id="inputSemesterMK" class="form-control" placeholder="1-8" required>
-                </div>
-                <div class="col-md-2">
-                  <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-plus me-1"></i>Tambah MK</button>
-                </div>
-              </form>
+                <div class="col-md-4">
+                  <label class="form-label small fw-semibold text-muted mb-1">Mata Kuliah Baru</label>
+                  <input type="text" id="inputMK" class="form-control" placeholder="Nama Mata Kuliah..." required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small fw-semibold text-muted mb-1">Model Pembelajaran</label>
+                  <input type="text" id="inputModel" class="form-control" placeholder="PBL / PJBL..." required>
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label small fw-semibold text-muted mb-1">Semester</label>
+                  <input type="number" id="inputSemesterMK" class="form-control" placeholder="1-8" required>
+                </div>
+                <div class="col-md-2">
+                  <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-plus me-1"></i>Tambah MK</button>
+                </div>
+              </form>
             </div>
           </div>
+
 
           <!-- Table Content -->
           <div class="card border-0 shadow-sm rounded-3">
@@ -383,7 +395,9 @@
             </div>
           </div>
 
+
         </div>
+
 
         <!-- PAGE: PENELITIAN & PENGABDIAN -->
         <div id="page-penelitian" class="page-section d-none">
@@ -409,6 +423,7 @@
             </div>
           </div>
 
+
         <div class="card border-0 shadow-sm rounded-3 mb-3 bg-white">
             <div class="card-body p-3">
               <div class="row align-items-center g-3">
@@ -427,11 +442,13 @@
             </div>
           </div>
 
+
           <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
             <input type="text" id="inputNamaPenilaiPenelitian" class="form-control form-control-sm border-secondary shadow-sm" placeholder="Nama Penilai GJM..." style="min-width: 180px;">
             <input type="text" id="inputNipNidnPenelitian" class="form-control form-control-sm border-secondary shadow-sm" placeholder="NIP / NIDN..." style="min-width: 150px;">
             <button class="btn btn-sm btn-danger text-nowrap shadow-sm" onclick="exportPenelitianToPDF()"><i class="fa-solid fa-file-pdf me-1"></i> Ekspor PDF</button>
           </div>
+
 
           <div id="containerAddPenelitian" class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
             <div class="card-header bg-white border-bottom pb-0 pt-3">
@@ -479,6 +496,7 @@
             </div>
           </div>
 
+
           <div class="card border-0 shadow-sm rounded-3">
             <div class="card-body p-0">
               <div class="table-responsive">
@@ -503,6 +521,7 @@
           </div>
         </div>
 
+
         <div id="page-pengabdian" class="page-section d-none">
           
           <div class="row align-items-end mb-3 g-3">
@@ -525,6 +544,7 @@
             </div>
           </div>
 
+
           <div class="card border-0 shadow-sm rounded-3 mb-3 bg-white">
             <div class="card-body p-3">
               <div class="row align-items-center g-3">
@@ -543,11 +563,13 @@
             </div>
           </div>
 
+
           <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
             <input type="text" id="inputNamaPenilaiPengabdian" class="form-control form-control-sm border-secondary shadow-sm" placeholder="Nama Penilai GJM..." style="min-width: 180px;">
             <input type="text" id="inputNipNidnPengabdian" class="form-control form-control-sm border-secondary shadow-sm" placeholder="NIP / NIDN..." style="min-width: 150px;">
             <button class="btn btn-sm btn-danger text-nowrap shadow-sm" onclick="exportPengabdianToPDF()"><i class="fa-solid fa-file-pdf me-1"></i> Ekspor PDF</button>
           </div>
+
 
           <div id="containerAddPengabdian" class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
             <div class="card-header bg-white border-bottom pb-0 pt-3">
@@ -595,6 +617,7 @@
             </div>
           </div>
 
+
           <div class="card border-0 shadow-sm rounded-3">
             <div class="card-body p-0">
               <div class="table-responsive">
@@ -612,35 +635,38 @@
                     </tr>
                   </thead>
                  <tbody id="pengabdianTableBody">
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <div id="page-monev" class="page-section d-none">
-          <div class="row align-items-end mb-3 g-3">
-            <div class="col-md-3">
-              <label class="form-label small fw-semibold text-muted mb-1">Tahun Akademik</label>
-              <select class="form-select" id="filterTAMonev" onchange="fetchMonevData()">
-                <option value="2023/2024">2023/2024</option>
-                <option value="2024/2025" selected>2024/2025</option>
-                <option value="2025/2026">2025/2026</option>
-              </select>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label small fw-semibold text-muted mb-1">Semester</label>
-              <select class="form-select" id="filterSemesterMonev" onchange="fetchMonevData()">
-                <option value="Gasal" selected>Gasal</option>
-                <option value="Genap">Genap</option>
-              </select>
-            </div>
-          </div>
 
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-file-invoice me-2 text-primary"></i>Laporan Monev</h5>
-          </div>
+                <div id="page-monev" class="page-section d-none">
+          <div class="row align-items-end mb-3 g-3">
+            <div class="col-md-3">
+              <label class="form-label small fw-semibold text-muted mb-1">Tahun Akademik</label>
+              <select class="form-select" id="filterTAMonev" onchange="fetchMonevData()">
+                <option value="2023/2024">2023/2024</option>
+                <option value="2024/2025" selected>2024/2025</option>
+                <option value="2025/2026">2025/2026</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label small fw-semibold text-muted mb-1">Semester</label>
+              <select class="form-select" id="filterSemesterMonev" onchange="fetchMonevData()">
+                <option value="Gasal" selected>Gasal</option>
+                <option value="Genap">Genap</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-file-invoice me-2 text-primary"></i>Laporan Monev</h5>
+          </div>
+
 
           <div id="containerAddMonev" class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
             <div class="card-body p-3">
@@ -659,6 +685,7 @@
               </form>
             </div>
           </div>
+
 
           <div class="card border-0 shadow-sm rounded-3">
             <div class="card-body p-0">
@@ -680,71 +707,77 @@
             </div>
           </div>
 
+
         </div>
+
 
       </div>
 <div id="page-tindaklanjut" class="page-section d-none">
-          <div class="row align-items-end mb-3 g-3">
-            <div class="col-md-3">
-              <label class="form-label small fw-semibold text-muted mb-1">Tahun Akademik</label>
-              <select class="form-select" id="filterTATindakLanjut" onchange="fetchTindakLanjutData()">
-                <option value="2023/2024">2023/2024</option>
-                <option value="2024/2025" selected>2024/2025</option>
-                <option value="2025/2026">2025/2026</option>
-              </select>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label small fw-semibold text-muted mb-1">Semester</label>
-              <select class="form-select" id="filterSemesterTindakLanjut" onchange="fetchTindakLanjutData()">
-                <option value="Gasal" selected>Gasal</option>
-                <option value="Genap">Genap</option>
-              </select>
-            </div>
-          </div>
+          <div class="row align-items-end mb-3 g-3">
+            <div class="col-md-3">
+              <label class="form-label small fw-semibold text-muted mb-1">Tahun Akademik</label>
+              <select class="form-select" id="filterTATindakLanjut" onchange="fetchTindakLanjutData()">
+                <option value="2023/2024">2023/2024</option>
+                <option value="2024/2025" selected>2024/2025</option>
+                <option value="2025/2026">2025/2026</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label small fw-semibold text-muted mb-1">Semester</label>
+              <select class="form-select" id="filterSemesterTindakLanjut" onchange="fetchTindakLanjutData()">
+                <option value="Gasal" selected>Gasal</option>
+                <option value="Genap">Genap</option>
+              </select>
+            </div>
+          </div>
 
-          <div class="d-flex align-items-center justify-content-between mb-3">
-            <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-file-signature me-2 text-primary"></i>Laporan Tindak Lanjut</h5>
-          </div>
 
-          <div id="containerAddTindakLanjut" class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
-            <div class="card-body p-3">
-              <form id="formAddTindakLanjut" class="row g-3 align-items-end">
-                <div class="col-md-5">
-                  <label class="form-label small fw-semibold text-muted mb-1">Judul Laporan Tindak Lanjut</label>
-                  <input type="text" id="inputJudulTindakLanjut" class="form-control" placeholder="Contoh: Tindak Lanjut Monev Gasal 2024..." required>
-                </div>
-                <div class="col-md-5">
-                  <label class="form-label small fw-semibold text-muted mb-1">Link Google Drive</label>
-                  <input type="url" id="inputLinkTindakLanjut" class="form-control" placeholder="https://drive.google.com/..." required>
-                </div>
-                <div class="col-md-2">
-                  <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-plus me-1"></i>Tambah Laporan</button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-file-signature me-2 text-primary"></i>Laporan Tindak Lanjut</h5>
+          </div>
 
-          <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                  <thead class="table-light">
-                    <tr>
-                      <th class="text-center" width="5%">No.</th>
-                      <th width="45%">Judul Laporan</th>
-                      <th class="text-center" width="20%">Link Berkas</th>
-                      <th class="text-center" width="20%">Tanggal Dibuat</th>
-                      <th class="text-center" width="10%">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tindakLanjutTableBody">
-                    </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
 
-        </div>
+          <div id="containerAddTindakLanjut" class="card border-0 shadow-sm rounded-3 mb-4 bg-white">
+            <div class="card-body p-3">
+              <form id="formAddTindakLanjut" class="row g-3 align-items-end">
+                <div class="col-md-5">
+                  <label class="form-label small fw-semibold text-muted mb-1">Judul Laporan Tindak Lanjut</label>
+                  <input type="text" id="inputJudulTindakLanjut" class="form-control" placeholder="Contoh: Tindak Lanjut Monev Gasal 2024..." required>
+                </div>
+                <div class="col-md-5">
+                  <label class="form-label small fw-semibold text-muted mb-1">Link Google Drive</label>
+                  <input type="url" id="inputLinkTindakLanjut" class="form-control" placeholder="https://drive.google.com/..." required>
+                </div>
+                <div class="col-md-2">
+                  <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-plus me-1"></i>Tambah Laporan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+
+          <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-center" width="5%">No.</th>
+                      <th width="45%">Judul Laporan</th>
+                      <th class="text-center" width="20%">Link Berkas</th>
+                      <th class="text-center" width="20%">Tanggal Dibuat</th>
+                      <th class="text-center" width="10%">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tindakLanjutTableBody">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
     <div id="page-dokumenmonitoring" class="page-section d-none">
           <div class="row align-items-end mb-3 g-3">
             <div class="col-md-3">
@@ -764,9 +797,11 @@
             </div>
           </div>
 
+
           <div class="d-flex align-items-center justify-content-between mb-3">
             <h5 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-folder-tree me-2 text-primary"></i>Dokumen Hasil Monitoring</h5>
           </div>
+
 
           <div id="containerAddDokumenMonitoring" class="card border-0 shadow-sm rounded-3 mb-4 bg-white" style="display:none;">
             <div class="card-body p-3">
@@ -788,6 +823,7 @@
               </form>
             </div>
           </div>
+
 
           <div class="card border-0 shadow-sm rounded-3">
             <div class="card-body p-0">
@@ -856,6 +892,7 @@
     </div>
   </div>
 
+
   <!-- MODAL: EVALUASI KELENGKAPAN/KESESUAIAN (GJM) -->
 <div class="modal fade" id="modalEvaluasi" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
@@ -889,6 +926,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- JS Library: Bootstrap Bundle (HANYA 1x) -->
   <div class="modal fade" id="modalInputLinkPenelitian" tabindex="-1">
@@ -927,6 +965,7 @@
     </div>
   </div>
 
+
   <div class="modal fade" id="modalEvaluasiPenelitian" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow">
@@ -962,6 +1001,7 @@
       </div>
     </div>
   </div>
+
 
   <div class="modal fade" id="modalInputLinkPengabdian" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
@@ -999,6 +1039,7 @@
     </div>
   </div>
 
+
   <div class="modal fade" id="modalEvaluasiPengabdian" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow">
@@ -1035,78 +1076,86 @@
     </div>
   </div>
 
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
  <!-- CUSTOM SCRIPT -->
   <script>
     // Bypass Mode Simulasi untuk GitHub Pages
     window.google = { script: { run: {} } };
 
+
     // ==========================================
     // GLOBAL VARIABLES & STATE
     // ==========================================
     var currentUser = null;
    var currentProdi = null;
-    var activePage = 'pengajaran';
-    var activePengajaranTab = 'Pra'; // Default tab (Pra, Proses, Pasca)
-    var isPengajaranLoaded = false;
-    var isPenelitianLoaded = false;
-    var isPengabdianLoaded = false;
-    var dbPengajaran = [];
+    var activePage = 'pengajaran';
+    var activePengajaranTab = 'Pra'; // Default tab (Pra, Proses, Pasca)
+    var isPengajaranLoaded = false;
+    var isPenelitianLoaded = false;
+    var isPengabdianLoaded = false;
+    var dbPengajaran = [];
     var mockSKDekanLink = '';
 
-    // State untuk Penelitian
-    var dbPenelitian = [];
-    var mockRoadmapLink = '';
-    const aspekListPenelitian = [
-      'Proposal Penelitian', 'Surat Tugas', 'Laporan Kemajuan', 'Laporan Akhir',
-      'Kesesuaian Penelitian dengan Roadmap Prodi', 'SK Hibah (jika dana hibah)', 'SPTJB (jika dana hibah)'
-    ];
 
-    // State untuk Pengabdian
-    var dbPengabdian = [];
-    var mockRoadmapLinkPengabdian = '';
-    const aspekListPengabdian = [
-      'Proposal Pengabdian', 'Surat Tugas', 'Laporan Kemajuan', 'Laporan Akhir',
-      'Kesesuaian Pengabdian dengan Roadmap Prodi', 'SK Hibah (jika dana hibah)', 'SPTJB (jika dana hibah)'
-    ];
+    // State untuk Penelitian
+    var dbPenelitian = [];
+    var mockRoadmapLink = '';
+    const aspekListPenelitian = [
+      'Proposal Penelitian', 'Surat Tugas', 'Laporan Kemajuan', 'Laporan Akhir',
+      'Kesesuaian Penelitian dengan Roadmap Prodi', 'SK Hibah (jika dana hibah)', 'SPTJB (jika dana hibah)'
+    ];
+
+
+    // State untuk Pengabdian
+    var dbPengabdian = [];
+    var mockRoadmapLinkPengabdian = '';
+    const aspekListPengabdian = [
+      'Proposal Pengabdian', 'Surat Tugas', 'Laporan Kemajuan', 'Laporan Akhir',
+      'Kesesuaian Pengabdian dengan Roadmap Prodi', 'SK Hibah (jika dana hibah)', 'SPTJB (jika dana hibah)'
+    ];
     
    // State untuk Laporan Monev
-    var dbMonev = [];
+    var dbMonev = [];
 
-   // State untuk Laporan Tindak Lanjut
+
+   // State untuk Laporan Tindak Lanjut
     var dbTindakLanjut = [];
     
     // State untuk Dokumen Hasil Monitoring
     var dbDokumenMonitoring = [];
     
     // List Prodi
-    const prodiList = [
-      { name: 'Pend. Matematika (S1)', icon: 'fa-square-root-variable' },
-      { name: 'Pend. Masyarakat (S1)', icon: 'fa-school' },
-      { name: 'Pend. Bahasa & Sastra Indonesia (S1)', icon: 'fa-book-open' },
-      { name: 'Pend. Jasmani, Kesehatan & Rekreasi (S1)', icon: 'fa-person-running' },
-      { name: 'Pend. Bahasa Inggris (S1)', icon: 'fa-language' },
-      { name: 'Magister Pendidikan Jasmani (S2)', icon: 'fa-medal' },
-      { name: 'Magister Administrasi Pendidikan (S2)', icon: 'fa-users-gear' },
-      { name: 'Magister Pendidikan Matematika (S2)', icon: 'fa-calculator' },
-      { name: 'Pend. Profesi Guru', icon: 'fa-chalkboard-user' },
-      { name: 'S1 PPKn', icon: 'fa-scale-balanced' }
-    ];
+    const prodiList = [
+      { name: 'Pend. Matematika (S1)', icon: 'fa-square-root-variable' },
+      { name: 'Pend. Masyarakat (S1)', icon: 'fa-school' },
+      { name: 'Pend. Bahasa & Sastra Indonesia (S1)', icon: 'fa-book-open' },
+      { name: 'Pend. Jasmani, Kesehatan & Rekreasi (S1)', icon: 'fa-person-running' },
+      { name: 'Pend. Bahasa Inggris (S1)', icon: 'fa-language' },
+      { name: 'Magister Pendidikan Jasmani (S2)', icon: 'fa-medal' },
+      { name: 'Magister Administrasi Pendidikan (S2)', icon: 'fa-users-gear' },
+      { name: 'Magister Pendidikan Matematika (S2)', icon: 'fa-calculator' },
+      { name: 'Pend. Profesi Guru', icon: 'fa-chalkboard-user' },
+      { name: 'S1 PPKn', icon: 'fa-scale-balanced' }
+    ];
 
-    // Akun Staff GKM Untuk Mode Simulasi
-    const mockStaffAccounts = {
-      'gkm_mtk': { name: 'Admin GKM MTK', prodi: 'Pend. Matematika (S1)' },
-      'gkm_pm': { name: 'Admin GKM PM', prodi: 'Pend. Masyarakat (S1)' },
-      'gkm_bsi': { name: 'Admin GKM BSI', prodi: 'Pend. Bahasa & Sastra Indonesia (S1)' },
-      'gkm_pjkr': { name: 'Admin GKM PJKR', prodi: 'Pend. Jasmani, Kesehatan & Rekreasi (S1)' },
-      'gkm_bing': { name: 'Admin GKM B.Inggris', prodi: 'Pend. Bahasa Inggris (S1)' },
-      'gkm_mpj': { name: 'Admin GKM MPJ', prodi: 'Magister Pendidikan Jasmani (S2)' },
-      'gkm_map': { name: 'Admin GKM MAP', prodi: 'Magister Administrasi Pendidikan (S2)' },
-      'gkm_mpm': { name: 'Admin GKM MPM', prodi: 'Magister Pendidikan Matematika (S2)' },
-      'gkm_ppg': { name: 'Admin GKM PPG', prodi: 'Pend. Profesi Guru' },
-      'gkm_ppkn': { name: 'Admin GKM PPKn', prodi: 'S1 PPKn' }
-    };
+
+    // Akun Staff GKM Untuk Mode Simulasi
+    const mockStaffAccounts = {
+      'gkm_mtk': { name: 'Admin GKM MTK', prodi: 'Pend. Matematika (S1)' },
+      'gkm_pm': { name: 'Admin GKM PM', prodi: 'Pend. Masyarakat (S1)' },
+      'gkm_bsi': { name: 'Admin GKM BSI', prodi: 'Pend. Bahasa & Sastra Indonesia (S1)' },
+      'gkm_pjkr': { name: 'Admin GKM PJKR', prodi: 'Pend. Jasmani, Kesehatan & Rekreasi (S1)' },
+      'gkm_bing': { name: 'Admin GKM B.Inggris', prodi: 'Pend. Bahasa Inggris (S1)' },
+      'gkm_mpj': { name: 'Admin GKM MPJ', prodi: 'Magister Pendidikan Jasmani (S2)' },
+      'gkm_map': { name: 'Admin GKM MAP', prodi: 'Magister Administrasi Pendidikan (S2)' },
+      'gkm_mpm': { name: 'Admin GKM MPM', prodi: 'Magister Pendidikan Matematika (S2)' },
+      'gkm_ppg': { name: 'Admin GKM PPG', prodi: 'Pend. Profesi Guru' },
+      'gkm_ppkn': { name: 'Admin GKM PPKn', prodi: 'S1 PPKn' }
+    };
+
 
     // MOCK DATA UNTUK SIMULASI 
     var mockDB = [
@@ -1115,16 +1164,18 @@
       { id: 203, prodi: 'Pend. Matematika (S1)', tahun_akademik: '2024/2025', semester: 'Gasal', mata_kuliah: 'Metode Penelitian Kualitatif', model_pembelajaran: 'Project Based Learning', fase: 'Pasca', aspek: 'Soal UTS dan pedoman penilaian UTS', ya_percent: '', tidak_percent: '', link: 'https://docs.google.com/uts', kelengkapan: '', keterangan: '', created_at: '2026-03-11' }
     ];
 
+
     const aspekListPra = [
-      'Perencanaan kurikulum: Silabus dan/atau Rencana Pembelajaran Semester',
-      'Penyediaan sumber belajar: Buku ajar, media pembelajaran, alat dll',
-      'Persiapan lingkungan kelas: Jadwal perkuliahan, saran prasarana perkuliahan seperti ruang kelas, proyektor dll.',
-      'Tugas pertemuan sebelum UTS',
+      'Perencanaan kurikulum: Silabus dan/atau Rencana Pembelajaran Semester',
+      'Penyediaan sumber belajar: Buku ajar, media pembelajaran, alat dll',
+      'Persiapan lingkungan kelas: Jadwal perkuliahan, saran prasarana perkuliahan seperti ruang kelas, proyektor dll.',
+      'Tugas pertemuan sebelum UTS',
       'Hasil Kerja Tugas sebelum UTS',
       'Rubrik Penilaian',
       'Bahan ajar yang berkaitan dengan hasil penelitian dosen',
       'Bahan ajar yang berkaitan dengan hasil PkM dosen'
     ];
+
 
     const aspekListProses = [
       'Apakah Dosen menyampaikan rencana pembelajaran semester pada kontrak perkuliahan di awal pembelajaran?',
@@ -1145,11 +1196,13 @@
       'Luaran Perkuliahan (Jika ada)'
     ];
 
+
     // ==========================================
     // CORE HELPERS
     // ==========================================
     // ⚠️ PENTING: Ganti tulisan URL_WEBAPP_ANDA_DISINI dengan link WebApp Apps Script
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-wOjP8TVcl9BfY0V-UId5baWs5765qyFq3qZT_4lNKyFh_K65hJtEf04SRK_p3Lye/exec';
+
 
     function gasRun(funcName) {
       var args = Array.prototype.slice.call(arguments, 1);
@@ -1175,11 +1228,13 @@
       });
     }
 
+
     function safeDate(val) {
       if (!val) return '-';
       if (typeof val === 'string' && val.match(/^\d{4}-\d{2}-\d{2}/)) return val.substring(0, 10);
       try { return new Date(val).toISOString().substring(0, 10); } catch (e) { return '-'; }
     }
+
 
     function showFullPageLoading(msg) {
       var loader = document.getElementById('fullPageLoader');
@@ -1188,10 +1243,12 @@
       loader.style.display = 'flex';
     }
 
+
     function hideFullPageLoading() {
       var loader = document.getElementById('fullPageLoader');
       if (loader) loader.style.display = 'none';
     }
+
 
     function showSectionLoading(containerId) {
       var container = document.getElementById(containerId);
@@ -1212,12 +1269,14 @@
       container.innerHTML = skeleton;
     }
 
+
     function toggleSidebar() {
       var sb = document.querySelector('.sidebar');
       var ov = document.querySelector('.sidebar-overlay');
       if(sb) sb.classList.toggle('active');
       if(ov) ov.classList.toggle('active');
     }
+
 
     // ==========================================
     // STATE & ROUTING MANAGEMENT
@@ -1229,6 +1288,7 @@ function checkLoginState() {
       
       if (!loginPage || !prodiPage || !mainApp) return;
 
+
       if (!currentUser) {
         loginPage.classList.remove('d-none');
         prodiPage.classList.add('d-none');
@@ -1237,6 +1297,7 @@ function checkLoginState() {
       } else {
         var btnGantiProdi = document.getElementById('btnGantiProdi');
         if(btnGantiProdi) btnGantiProdi.style.display = (currentUser.role === 'Admin') ? 'block' : 'none';
+
 
         var formAddMK = document.getElementById('containerAddMK');
         var inputSKDekan = document.getElementById('inputSKDekan');
@@ -1258,6 +1319,7 @@ function checkLoginState() {
            if(inputRoadmapLink) inputRoadmapLink.readOnly = true;
            if(btnSaveRoadmap) btnSaveRoadmap.style.display = 'none';
 
+
            if(inputNamaPenilai) {
                inputNamaPenilai.readOnly = false;
                inputNamaPenilai.placeholder = 'Nama Penilai GJM...';
@@ -1269,36 +1331,39 @@ function checkLoginState() {
            }
            
            var inputNamaPenilaiPen = document.getElementById('inputNamaPenilaiPenelitian');
-           var inputNipNidnPen = document.getElementById('inputNipNidnPenelitian');
-           if(inputNamaPenilaiPen) {
-               inputNamaPenilaiPen.readOnly = false;
-               inputNamaPenilaiPen.placeholder = 'Nama Penilai GJM...';
-               if(!inputNamaPenilaiPen.value) inputNamaPenilaiPen.value = currentUser.fullname;
-           }
-           if(inputNipNidnPen) {
-               inputNipNidnPen.readOnly = false;
-               inputNipNidnPen.placeholder = 'NIP / NIDN...';
-           }
+           var inputNipNidnPen = document.getElementById('inputNipNidnPenelitian');
+           if(inputNamaPenilaiPen) {
+               inputNamaPenilaiPen.readOnly = false;
+               inputNamaPenilaiPen.placeholder = 'Nama Penilai GJM...';
+               if(!inputNamaPenilaiPen.value) inputNamaPenilaiPen.value = currentUser.fullname;
+           }
+           if(inputNipNidnPen) {
+               inputNipNidnPen.readOnly = false;
+               inputNipNidnPen.placeholder = 'NIP / NIDN...';
+           }
 
-           // Toggle Pengabdian
-           var formAddPengabdian = document.getElementById('containerAddPengabdian');
-           if(formAddPengabdian) formAddPengabdian.style.display = 'none';
-           var inputRoadmapLinkPeng = document.getElementById('inputRoadmapLinkPengabdian');
-           var btnSaveRoadmapPeng = document.getElementById('btnSaveRoadmapPengabdian');
-           if(inputRoadmapLinkPeng) inputRoadmapLinkPeng.readOnly = true;
-           if(btnSaveRoadmapPeng) btnSaveRoadmapPeng.style.display = 'none';
-           var inputNamaPenilaiPeng = document.getElementById('inputNamaPenilaiPengabdian');
-           var inputNipNidnPeng = document.getElementById('inputNipNidnPengabdian');
-           if(inputNamaPenilaiPeng) { inputNamaPenilaiPeng.readOnly = false; inputNamaPenilaiPeng.placeholder = 'Nama Penilai GJM...'; if(!inputNamaPenilaiPeng.value) inputNamaPenilaiPeng.value = currentUser.fullname; }
-           if(inputNipNidnPeng) { inputNipNidnPeng.readOnly = false; inputNipNidnPeng.placeholder = 'NIP / NIDN...'; }
+
+           // Toggle Pengabdian
+           var formAddPengabdian = document.getElementById('containerAddPengabdian');
+           if(formAddPengabdian) formAddPengabdian.style.display = 'none';
+           var inputRoadmapLinkPeng = document.getElementById('inputRoadmapLinkPengabdian');
+           var btnSaveRoadmapPeng = document.getElementById('btnSaveRoadmapPengabdian');
+           if(inputRoadmapLinkPeng) inputRoadmapLinkPeng.readOnly = true;
+           if(btnSaveRoadmapPeng) btnSaveRoadmapPeng.style.display = 'none';
+           var inputNamaPenilaiPeng = document.getElementById('inputNamaPenilaiPengabdian');
+           var inputNipNidnPeng = document.getElementById('inputNipNidnPengabdian');
+           if(inputNamaPenilaiPeng) { inputNamaPenilaiPeng.readOnly = false; inputNamaPenilaiPeng.placeholder = 'Nama Penilai GJM...'; if(!inputNamaPenilaiPeng.value) inputNamaPenilaiPeng.value = currentUser.fullname; }
+           if(inputNipNidnPeng) { inputNipNidnPeng.readOnly = false; inputNipNidnPeng.placeholder = 'NIP / NIDN...'; }
+
 
           // Hide form Monev from Admin
-           var formAddMonev = document.getElementById('containerAddMonev');
-           if(formAddMonev) formAddMonev.style.display = 'none';
-           
-          // Hide form Tindak Lanjut from Admin
+           var formAddMonev = document.getElementById('containerAddMonev');
+           if(formAddMonev) formAddMonev.style.display = 'none';
+           
+          // Hide form Tindak Lanjut from Admin
            var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
            if(formAddTindakLanjut) formAddTindakLanjut.style.display = 'none';
+
 
            // Show form Dokumen Monitoring for Admin (GJM)
            var formAddDokumen = document.getElementById('containerAddDokumenMonitoring');
@@ -1313,6 +1378,7 @@ function checkLoginState() {
            if(inputRoadmapLink) inputRoadmapLink.readOnly = false;
            if(btnSaveRoadmap) btnSaveRoadmap.style.display = 'inline-block';
 
+
            if(inputNamaPenilai) {
                inputNamaPenilai.readOnly = true;
                inputNamaPenilai.value = '';
@@ -1325,38 +1391,41 @@ function checkLoginState() {
            }
            
           var inputNamaPenilaiPen = document.getElementById('inputNamaPenilaiPenelitian');
-           var inputNipNidnPen = document.getElementById('inputNipNidnPenelitian');
-           if(inputNamaPenilaiPen) {
-               inputNamaPenilaiPen.readOnly = true;
-               inputNamaPenilaiPen.value = '';
-               inputNamaPenilaiPen.placeholder = 'Hanya diisi GJM';
-           }
-           if(inputNipNidnPen) {
-               inputNipNidnPen.readOnly = true;
-               inputNipNidnPen.value = '';
-               inputNipNidnPen.placeholder = 'Hanya diisi GJM';
-           }
+           var inputNipNidnPen = document.getElementById('inputNipNidnPenelitian');
+           if(inputNamaPenilaiPen) {
+               inputNamaPenilaiPen.readOnly = true;
+               inputNamaPenilaiPen.value = '';
+               inputNamaPenilaiPen.placeholder = 'Hanya diisi GJM';
+           }
+           if(inputNipNidnPen) {
+               inputNipNidnPen.readOnly = true;
+               inputNipNidnPen.value = '';
+               inputNipNidnPen.placeholder = 'Hanya diisi GJM';
+           }
 
-           // Toggle Pengabdian
-           var inputRoadmapLinkPeng = document.getElementById('inputRoadmapLinkPengabdian');
-           var btnSaveRoadmapPeng = document.getElementById('btnSaveRoadmapPengabdian');
-           if(inputRoadmapLinkPeng) inputRoadmapLinkPeng.readOnly = false;
-           if(btnSaveRoadmapPeng) btnSaveRoadmapPeng.style.display = 'inline-block';
+
+           // Toggle Pengabdian
+           var inputRoadmapLinkPeng = document.getElementById('inputRoadmapLinkPengabdian');
+           var btnSaveRoadmapPeng = document.getElementById('btnSaveRoadmapPengabdian');
+           if(inputRoadmapLinkPeng) inputRoadmapLinkPeng.readOnly = false;
+           if(btnSaveRoadmapPeng) btnSaveRoadmapPeng.style.display = 'inline-block';
            var inputNamaPenilaiPeng = document.getElementById('inputNamaPenilaiPengabdian');
-           var inputNipNidnPeng = document.getElementById('inputNipNidnPengabdian');
-           if(inputNamaPenilaiPeng) { inputNamaPenilaiPeng.readOnly = true; inputNamaPenilaiPeng.value = ''; inputNamaPenilaiPeng.placeholder = 'Hanya diisi GJM'; }
-           if(inputNipNidnPeng) { inputNipNidnPeng.readOnly = true; inputNipNidnPeng.value = ''; inputNipNidnPeng.placeholder = 'Hanya diisi GJM'; }
+           var inputNipNidnPeng = document.getElementById('inputNipNidnPengabdian');
+           if(inputNamaPenilaiPeng) { inputNamaPenilaiPeng.readOnly = true; inputNamaPenilaiPeng.value = ''; inputNamaPenilaiPeng.placeholder = 'Hanya diisi GJM'; }
+           if(inputNipNidnPeng) { inputNipNidnPeng.readOnly = true; inputNipNidnPeng.value = ''; inputNipNidnPeng.placeholder = 'Hanya diisi GJM'; }
            
           var formAddMonev = document.getElementById('containerAddMonev');
-           if(formAddMonev) formAddMonev.style.display = 'block';
-           
-          var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
+           if(formAddMonev) formAddMonev.style.display = 'block';
+           
+          var formAddTindakLanjut = document.getElementById('containerAddTindakLanjut');
            if(formAddTindakLanjut) formAddTindakLanjut.style.display = 'block';
+
 
            // Hide form Dokumen Monitoring for Staff (GKM)
            var formAddDokumen = document.getElementById('containerAddDokumenMonitoring');
            if(formAddDokumen) formAddDokumen.style.display = 'none';
         }
+
 
         if (!currentProdi) {
           loginPage.classList.add('d-none');
@@ -1378,6 +1447,7 @@ function checkLoginState() {
       }
     }
 
+
     function renderProdiGrid() {
       var grid = document.getElementById('prodiGrid');
       var html = '';
@@ -1393,17 +1463,20 @@ function checkLoginState() {
       grid.innerHTML = html;
     }
 
+
    function selectProdi(prodiName) {
-      currentProdi = prodiName;
-      isPengajaranLoaded = false; isPenelitianLoaded = false; isPengabdianLoaded = false;
-      dbPengajaran = [];
-      checkLoginState();
-    }
+      currentProdi = prodiName;
+      isPengajaranLoaded = false; isPenelitianLoaded = false; isPengabdianLoaded = false;
+      dbPengajaran = [];
+      checkLoginState();
+    }
+
 
     function changeProdi() {
       currentProdi = null;
       checkLoginState();
     }
+
 
     function showPage(pageName, navEl) {
       activePage = pageName;
@@ -1420,52 +1493,59 @@ function checkLoginState() {
       var targetPage = document.getElementById('page-' + pageName);
       if (targetPage) targetPage.classList.remove('d-none');
 
+
     var titles = { 'pengajaran': 'Manajemen Pengajaran', 'penelitian': 'Manajemen Penelitian', 'pengabdian': 'Manajemen Pengabdian', 'monev': 'Laporan Monev', 'tindaklanjut': 'Laporan Tindak Lanjut', 'dokumenmonitoring': 'Dokumen Hasil Monitoring' };
-      document.getElementById('pageTitle').innerText = titles[pageName] || 'Dashboard';
-      
-      if (window.innerWidth < 992) toggleSidebar();
-      loadPageData(pageName);
-    }
+      document.getElementById('pageTitle').innerText = titles[pageName] || 'Dashboard';
+      
+      if (window.innerWidth < 992) toggleSidebar();
+      loadPageData(pageName);
+    }
 
-    function switchPengajaranTab(tabName) {
-      activePengajaranTab = tabName;
-      document.getElementById('tab-Pra').classList.remove('active');
-      document.getElementById('tab-Proses').classList.remove('active');
-      document.getElementById('tab-Pasca').classList.remove('active');
-      document.getElementById('tab-' + tabName).classList.add('active');
-      renderPengajaran();
-    }
 
-    // ==========================================
-    // DATA FETCHING & RENDERING (TIER 2)
-    // ==========================================
-    function loadPageData(pageName) {
-      if (pageName === 'pengajaran') {
-        if (!isPengajaranLoaded) fetchPengajaranData();
-        else renderPengajaran();
-      } else if (pageName === 'penelitian') {
-        if (!isPenelitianLoaded) fetchPenelitianData();
-        else renderPenelitian();
-      } else if (pageName === 'pengabdian') {
-        if (!isPengabdianLoaded) fetchPengabdianData();
-        else renderPengabdian();
-      } else if (pageName === 'monev') {
-        fetchMonevData();
-     } else if (pageName === 'tindaklanjut') {
+    function switchPengajaranTab(tabName) {
+      activePengajaranTab = tabName;
+      document.getElementById('tab-Pra').classList.remove('active');
+      document.getElementById('tab-Proses').classList.remove('active');
+      document.getElementById('tab-Pasca').classList.remove('active');
+      document.getElementById('tab-' + tabName).classList.add('active');
+      renderPengajaran();
+    }
+
+
+    // ==========================================
+    // DATA FETCHING & RENDERING (TIER 2)
+    // ==========================================
+    function loadPageData(pageName) {
+      if (pageName === 'pengajaran') {
+        if (!isPengajaranLoaded) fetchPengajaranData();
+        else renderPengajaran();
+      } else if (pageName === 'penelitian') {
+        if (!isPenelitianLoaded) fetchPenelitianData();
+        else renderPenelitian();
+      } else if (pageName === 'pengabdian') {
+        if (!isPengabdianLoaded) fetchPengabdianData();
+        else renderPengabdian();
+      } else if (pageName === 'monev') {
+        fetchMonevData();
+     } else if (pageName === 'tindaklanjut') {
         fetchTindakLanjutData();
       } else if (pageName === 'dokumenmonitoring') {
         fetchDokumenMonitoringData();
       }
     }
 
+
     function triggerFetchPengajaran() { fetchPengajaranData(); }
+
 
     function fetchPengajaranData(silent) {
       var requestedPage = 'pengajaran';
       var reqTA = document.getElementById('filterTA').value;
       var reqSem = document.getElementById('filterSemester').value;
 
+
       if (!silent) showSectionLoading('pengajaranTableBody');
+
 
       if (typeof google === 'undefined') {
         setTimeout(function() {
@@ -1474,19 +1554,19 @@ function checkLoginState() {
             return x.prodi === currentProdi && x.tahun_akademik === reqTA && x.semester === reqSem;
           });
          document.getElementById('inputSKDekan').value = mockSKDekanLink || '';
-          toggleSKDekanViewButton(mockSKDekanLink);
-          isPengajaranLoaded = true;
-          if (activePage === requestedPage) renderPengajaran();
-        }, 800);
-      } else {
-        gasRun('getPengajaranMaster', currentProdi, reqTA, reqSem)
-          .then(function(res) {
-            if (activePage !== requestedPage && !silent) return;
-            dbPengajaran = res.dataMK || [];
-            document.getElementById('inputSKDekan').value = res.linkSK || '';
-            toggleSKDekanViewButton(res.linkSK);
-            isPengajaranLoaded = true;
-            if (activePage === requestedPage) renderPengajaran();
+          toggleSKDekanViewButton(mockSKDekanLink);
+          isPengajaranLoaded = true;
+          if (activePage === requestedPage) renderPengajaran();
+        }, 800);
+      } else {
+        gasRun('getPengajaranMaster', currentProdi, reqTA, reqSem)
+          .then(function(res) {
+            if (activePage !== requestedPage && !silent) return;
+            dbPengajaran = res.dataMK || [];
+            document.getElementById('inputSKDekan').value = res.linkSK || '';
+            toggleSKDekanViewButton(res.linkSK);
+            isPengajaranLoaded = true;
+            if (activePage === requestedPage) renderPengajaran();
           })
           .catch(function(err) {
             if (activePage !== requestedPage && !silent) return;
@@ -1499,6 +1579,7 @@ function checkLoginState() {
       }
     }
 
+
     function toggleSKDekanViewButton(linkValue) {
        var btnLihat = document.getElementById('btnLihatSK');
        if (!btnLihat) return;
@@ -1510,9 +1591,11 @@ function checkLoginState() {
        }
     }
 
+
 function renderPengajaran() {
       var tbody = document.getElementById('pengajaranTableBody');
       if (!tbody) return;
+
 
       var thead = document.getElementById('tableHeaderPengajaran');
       if (activePengajaranTab === 'Proses') {
@@ -1521,10 +1604,13 @@ function renderPengajaran() {
          thead.innerHTML = '<tr><th class="text-center" width="5%">No</th><th width="20%">Mata Kuliah & Model</th><th width="30%">Aspek</th><th class="text-center" width="15%">Bukti (Link)</th><th class="text-center" width="10%">Kelengkapan</th><th width="15%">Keterangan</th><th class="text-center" width="5%">Persentase</th></tr>';
       }
 
+
       var filteredData = dbPengajaran.filter(function(item) { return item.fase === activePengajaranTab; });
+
 
       // Mapping nama fase untuk tampilan teks kosong
       var displayFase = activePengajaranTab === 'Pra' ? 'Awal' : (activePengajaranTab === 'Proses' ? 'Rekap Survey' : 'Akhir');
+
 
       if (filteredData.length === 0) {
         var colCount = activePengajaranTab === 'Proses' ? 9 : 7;
@@ -1532,24 +1618,31 @@ function renderPengajaran() {
         return;
       }
 
+
       var groups = {};
       filteredData.forEach(function(item) {
         if (!groups[item.mata_kuliah]) groups[item.mata_kuliah] = [];
         groups[item.mata_kuliah].push(item);
       });
 
+
       var html = '';
       var mkCount = 1;
       var indOrder = activePengajaranTab === 'Pra' ? aspekListPra : (activePengajaranTab === 'Proses' ? aspekListProses : aspekListPasca);
       var isAdmin = currentUser.role === 'Admin'; // GJM
 
+
       for (var mk in groups) {
         var items = groups[mk];
         items.sort(function(a, b) { return indOrder.indexOf(a.aspek) - indOrder.indexOf(b.aspek); });
        
-        var rowspan = items.length;
-        var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap' || i.kelengkapan === 'Sesuai'; }).length;
-        var persentase = Math.round((countLengkap / indOrder.length) * 100);
+      var rowspan = items.length;
+        var totalPoints = 0;
+        items.forEach(function(i) {
+            if (i.kelengkapan === 'Lengkap' || i.kelengkapan === 'Sesuai') totalPoints += 100;
+            else if (i.kelengkapan === 'n/a') totalPoints += 50;
+        });
+        var persentase = Math.round(totalPoints / indOrder.length);
 
         items.forEach(function(item, idx) {
           var isSyncing = item._isSyncing;
@@ -1559,12 +1652,12 @@ function renderPengajaran() {
           html += '<tr class="'+rowClass+' '+opacity+'">';
          
           // Kolom 1 & 2: Rowspan No, MK
-          if (idx === 0) {
-             html += '<td rowspan="'+rowspan+'" class="text-center fw-bold align-middle bg-white">' + mkCount + '</td>';
-             html += '<td rowspan="'+rowspan+'" class="align-middle bg-white">';
-             html += '<div class="fw-bold text-primary mb-1">' + mk + '</div>';
-             html += '<div class="small text-muted mb-1"><i class="fa-solid fa-calendar me-1"></i>Semester MK: ' + (item.semester_mk || '-') + '</div>';
-             html += '<div class="small text-muted"><i class="fa-solid fa-chalkboard-user me-1"></i>' + (item.model_pembelajaran || '-') + '</div>';
+          if (idx === 0) {
+             html += '<td rowspan="'+rowspan+'" class="text-center fw-bold align-middle bg-white">' + mkCount + '</td>';
+             html += '<td rowspan="'+rowspan+'" class="align-middle bg-white">';
+             html += '<div class="fw-bold text-primary mb-1">' + mk + '</div>';
+             html += '<div class="small text-muted mb-1"><i class="fa-solid fa-calendar me-1"></i>Semester MK: ' + (item.semester_mk || '-') + '</div>';
+             html += '<div class="small text-muted"><i class="fa-solid fa-chalkboard-user me-1"></i>' + (item.model_pembelajaran || '-') + '</div>';
              
              if (!isAdmin && !isSyncing) {
                html += '<div class="mt-2"><button class="btn btn-sm btn-outline-danger py-1 px-2" onclick="handleDeleteMK(\''+mk+'\')" style="font-size:0.75rem;"><i class="fa-solid fa-trash me-1"></i>Hapus MK</button></div>';
@@ -1585,6 +1678,7 @@ function renderPengajaran() {
                  html += '<td class="text-center align-middle">' + (item.tidak_percent !== '' ? item.tidak_percent + '%' : '-') + '</td>';
              }
 
+
              // Kolom Bukti (Link)
              html += '<td class="text-center align-middle">';
              if (item.link) {
@@ -1596,17 +1690,20 @@ function renderPengajaran() {
              }
              html += '</td>';
 
-             // Kolom Kelengkapan / Kesesuaian (Dropdown GJM)
-             var badgeColor = (item.kelengkapan === 'Lengkap' || item.kelengkapan === 'Sesuai') ? 'bg-success' : ((item.kelengkapan === 'Tidak Lengkap' || item.kelengkapan === 'Tidak Sesuai') ? 'bg-danger' : 'bg-secondary');
+
+           // Kolom Kelengkapan / Kesesuaian (Dropdown GJM)
+             var badgeColor = (item.kelengkapan === 'Lengkap' || item.kelengkapan === 'Sesuai') ? 'bg-success' : ((item.kelengkapan === 'Tidak Lengkap' || item.kelengkapan === 'Tidak Sesuai') ? 'bg-danger' : (item.kelengkapan === 'n/a' ? 'bg-warning text-dark' : 'bg-secondary'));
              var dispKelengkapan = item.kelengkapan || 'Belum dinilai';
              html += '<td class="text-center align-middle">';
              html += '<span class="badge '+badgeColor+' mb-1">' + dispKelengkapan + '</span>';
              if (isAdmin) { html += '<br><button class="btn btn-sm btn-outline-secondary py-0 px-1" style="font-size:0.7rem;" onclick="openEvaluasi('+item.id+')"><i class="fa-solid fa-pen"></i> Penilaian</button>'; }
              html += '</td>';
 
+
              // Kolom Keterangan
              html += '<td class="align-middle text-wrap" style="min-width:200px;"><small class="text-muted">' + (item.keterangan || '-') + '</small></td>';
           }
+
 
           // Kolom Persentase (Rowspan)
           if (idx === 0) {
@@ -1616,6 +1713,7 @@ function renderPengajaran() {
              html += '</td>';
           }
 
+
           html += '</tr>';
         });
         mkCount++;
@@ -1623,36 +1721,39 @@ function renderPengajaran() {
       tbody.innerHTML = html;
     }
 
+
     // ==========================================
     // ACTIONS & OPTIMISTIC UI (TIER 3)
     // ==========================================
     
     function handleAddMK() {
-      var mkName = document.getElementById('inputMK').value.trim();
-      var modelName = document.getElementById('inputModel').value.trim();
-      var semesterMK = document.getElementById('inputSemesterMK').value.trim();
-      
-      if (!mkName || !modelName || !semesterMK) return Swal.fire('Perhatian', 'Nama MK, Model Pembelajaran, dan Semester MK wajib diisi', 'warning');
-      
-      var payload = { prodi: currentProdi, ta: document.getElementById('filterTA').value, semester: document.getElementById('filterSemester').value, mata_kuliah: mkName, semester_mk: semesterMK, model_pembelajaran: modelName };
+      var mkName = document.getElementById('inputMK').value.trim();
+      var modelName = document.getElementById('inputModel').value.trim();
+      var semesterMK = document.getElementById('inputSemesterMK').value.trim();
+      
+      if (!mkName || !modelName || !semesterMK) return Swal.fire('Perhatian', 'Nama MK, Model Pembelajaran, dan Semester MK wajib diisi', 'warning');
+      
+      var payload = { prodi: currentProdi, ta: document.getElementById('filterTA').value, semester: document.getElementById('filterSemester').value, mata_kuliah: mkName, semester_mk: semesterMK, model_pembelajaran: modelName };
 
-      var backupData = JSON.parse(JSON.stringify(dbPengajaran));
-      var tempBaseId = Date.now();
-      var idCount = 0;
-      
-      aspekListPra.forEach(function(ind) {
-        dbPengajaran.push({ id: tempBaseId + idCount++, prodi: payload.prodi, tahun_akademik: payload.ta, semester: payload.semester, mata_kuliah: payload.mata_kuliah, semester_mk: payload.semester_mk, model_pembelajaran: payload.model_pembelajaran, fase: 'Pra', aspek: ind, ya_percent: '', tidak_percent: '', link: '', kelengkapan: '', keterangan: '', created_at: safeDate(new Date()), _isSyncing: true });
-      });
-      aspekListProses.forEach(function(ind) {
-        dbPengajaran.push({ id: tempBaseId + idCount++, prodi: payload.prodi, tahun_akademik: payload.ta, semester: payload.semester, mata_kuliah: payload.mata_kuliah, semester_mk: payload.semester_mk, model_pembelajaran: payload.model_pembelajaran, fase: 'Proses', aspek: ind, ya_percent: '', tidak_percent: '', link: '', kelengkapan: '', keterangan: '', created_at: safeDate(new Date()), _isSyncing: true });
-      });
-      aspekListPasca.forEach(function(ind) {
-        dbPengajaran.push({ id: tempBaseId + idCount++, prodi: payload.prodi, tahun_akademik: payload.ta, semester: payload.semester, mata_kuliah: payload.mata_kuliah, semester_mk: payload.semester_mk, model_pembelajaran: payload.model_pembelajaran, fase: 'Pasca', aspek: ind, ya_percent: '', tidak_percent: '', link: '', kelengkapan: '', keterangan: '', created_at: safeDate(new Date()), _isSyncing: true });
-      });
-      
-      document.getElementById('inputMK').value = ''; document.getElementById('inputModel').value = ''; document.getElementById('inputSemesterMK').value = '';
+
+      var backupData = JSON.parse(JSON.stringify(dbPengajaran));
+      var tempBaseId = Date.now();
+      var idCount = 0;
+      
+      aspekListPra.forEach(function(ind) {
+        dbPengajaran.push({ id: tempBaseId + idCount++, prodi: payload.prodi, tahun_akademik: payload.ta, semester: payload.semester, mata_kuliah: payload.mata_kuliah, semester_mk: payload.semester_mk, model_pembelajaran: payload.model_pembelajaran, fase: 'Pra', aspek: ind, ya_percent: '', tidak_percent: '', link: '', kelengkapan: '', keterangan: '', created_at: safeDate(new Date()), _isSyncing: true });
+      });
+      aspekListProses.forEach(function(ind) {
+        dbPengajaran.push({ id: tempBaseId + idCount++, prodi: payload.prodi, tahun_akademik: payload.ta, semester: payload.semester, mata_kuliah: payload.mata_kuliah, semester_mk: payload.semester_mk, model_pembelajaran: payload.model_pembelajaran, fase: 'Proses', aspek: ind, ya_percent: '', tidak_percent: '', link: '', kelengkapan: '', keterangan: '', created_at: safeDate(new Date()), _isSyncing: true });
+      });
+      aspekListPasca.forEach(function(ind) {
+        dbPengajaran.push({ id: tempBaseId + idCount++, prodi: payload.prodi, tahun_akademik: payload.ta, semester: payload.semester, mata_kuliah: payload.mata_kuliah, semester_mk: payload.semester_mk, model_pembelajaran: payload.model_pembelajaran, fase: 'Pasca', aspek: ind, ya_percent: '', tidak_percent: '', link: '', kelengkapan: '', keterangan: '', created_at: safeDate(new Date()), _isSyncing: true });
+      });
+      
+      document.getElementById('inputMK').value = ''; document.getElementById('inputModel').value = ''; document.getElementById('inputSemesterMK').value = '';
       renderPengajaran();
       Swal.fire({ icon:'info', title:'Membuat struktur...', toast:true, position:'top-end', showConfirmButton:false, timer:2000 });
+
 
       if (typeof google !== 'undefined') {
         gasRun('addMataKuliah', payload)
@@ -1662,6 +1763,7 @@ function renderPengajaran() {
         setTimeout(function() { dbPengajaran.forEach(function(item) { if(item.mata_kuliah === payload.mata_kuliah) delete item._isSyncing; }); mockDB = mockDB.concat(dbPengajaran.filter(function(x) { return x.mata_kuliah === payload.mata_kuliah; })); renderPengajaran(); Swal.fire({ icon:'success', title:'MK Ditambahkan (Simulasi)', toast:true, position:'top-end', showConfirmButton:false, timer:2000 }); }, 1500);
       }
     }
+
 
 function handleDeleteMK(mkName) {
       Swal.fire({ title: 'Hapus Mata Kuliah?', text: 'Seluruh struktur Awal, Rekap Survey, & Akhir untuk "'+mkName+'" akan dihapus permanen.', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya, Hapus'
@@ -1675,6 +1777,7 @@ function handleDeleteMK(mkName) {
        
         var payload = { prodi: currentProdi, ta: document.getElementById('filterTA').value, semester: document.getElementById('filterSemester').value, mata_kuliah: mkName };
 
+
         if (typeof google !== 'undefined') {
             gasRun('deleteMataKuliah', payload)
                 .then(function(res) { if (!res.success) { dbPengajaran = backupData; renderPengajaran(); Swal.fire('Error', res.message, 'error'); } else fetchPengajaranData(true); })
@@ -1682,6 +1785,7 @@ function handleDeleteMK(mkName) {
         } else { mockDB = mockDB.filter(function(x) { return !(x.mata_kuliah === mkName && x.prodi === payload.prodi && x.tahun_akademik === payload.ta && x.semester === payload.semester); }); }
       });
     }
+
 
     function openInputLink(id) {
       var item = dbPengajaran.find(function(x) { return String(x.id) === String(id); });
@@ -1695,6 +1799,7 @@ function handleDeleteMK(mkName) {
       var inputYa = document.getElementById('inputYaPercent');
       var inputTidak = document.getElementById('inputTidakPercent');
 
+
       // Tampilkan Input Ya/Tidak HANYA di tab Proses
       if (activePengajaranTab === 'Proses') {
           containerPersentase.style.display = 'flex';
@@ -1705,8 +1810,10 @@ function handleDeleteMK(mkName) {
           inputYa.required = false; inputTidak.required = false;
       }
 
+
       var modal = new bootstrap.Modal(document.getElementById('modalInputLink')); modal.show();
     }
+
 
     function handleSaveLink() {
       var id = document.getElementById('linkDataId').value;
@@ -1714,17 +1821,22 @@ function handleDeleteMK(mkName) {
       var newYa = document.getElementById('inputYaPercent') ? document.getElementById('inputYaPercent').value : '';
       var newTidak = document.getElementById('inputTidakPercent') ? document.getElementById('inputTidakPercent').value : '';
 
+
       var item = dbPengajaran.find(function(x) { return String(x.id) === String(id); });
       if (!item) return;
       var backupData = JSON.parse(JSON.stringify(dbPengajaran));
 
+
       var payload = { id: id, link: newLink, ya_percent: newYa, tidak_percent: newTidak };
+
 
       item.link = newLink; 
       if (activePengajaranTab === 'Proses') { item.ya_percent = newYa; item.tidak_percent = newTidak; }
       item._isSyncing = true; renderPengajaran();
 
+
       var modalInst = bootstrap.Modal.getInstance(document.getElementById('modalInputLink')); if(modalInst) modalInst.hide();
+
 
       if (typeof google !== 'undefined') {
         gasRun('updateGKMInput', payload).then(function(res) { if (res.success) fetchPengajaranData(true); else { dbPengajaran = backupData; renderPengajaran(); }}).catch(function(err) { dbPengajaran = backupData; renderPengajaran(); });
@@ -1737,6 +1849,7 @@ function handleDeleteMK(mkName) {
         }, 1000);
       }
     }
+
 
     function openEvaluasi(id) {
       var item = dbPengajaran.find(function(x) { return String(x.id) === String(id); });
@@ -1753,13 +1866,19 @@ function handleDeleteMK(mkName) {
           selectKelengkapan.innerHTML += '<option value="Sesuai">Sesuai</option><option value="Tidak Sesuai">Tidak Sesuai</option>';
       } else {
           document.getElementById('labelKelengkapan').innerHTML = 'Kelengkapan <span class="text-danger">*</span>';
-          selectKelengkapan.innerHTML += '<option value="Lengkap">Lengkap</option><option value="Tidak Lengkap">Tidak Lengkap</option>';
+          if (item.aspek === 'Luaran Perkuliahan (Jika ada)') {
+              selectKelengkapan.innerHTML += '<option value="Lengkap">Lengkap</option><option value="Tidak Lengkap">Tidak Lengkap</option><option value="n/a">n/a</option>';
+          } else {
+              selectKelengkapan.innerHTML += '<option value="Lengkap">Lengkap</option><option value="Tidak Lengkap">Tidak Lengkap</option>';
+          }
       }
+
 
       selectKelengkapan.value = item.kelengkapan || '';
       document.getElementById('inputKeterangan').value = item.keterangan || '';
       var modal = new bootstrap.Modal(document.getElementById('modalEvaluasi')); modal.show();
     }
+
 
     function handleSaveEvaluasi() {
       var id = document.getElementById('evalDataId').value;
@@ -1772,8 +1891,10 @@ function handleDeleteMK(mkName) {
       var payload = { id: id, kelengkapan: newKelengkapan, keterangan: newKeterangan };
       var backupData = JSON.parse(JSON.stringify(dbPengajaran));
 
+
       item.kelengkapan = newKelengkapan; item.keterangan = newKeterangan; item._isSyncing = true; renderPengajaran();
       var modalInst = bootstrap.Modal.getInstance(document.getElementById('modalEvaluasi')); if(modalInst) modalInst.hide();
+
 
       if (typeof google !== 'undefined') {
         gasRun('updateEvaluasiPengajaran', payload).then(function(res) { if (res.success) fetchPengajaranData(true); else { dbPengajaran = backupData; renderPengajaran(); }}).catch(function(err) { dbPengajaran = backupData; renderPengajaran(); });
@@ -1782,14 +1903,18 @@ function handleDeleteMK(mkName) {
       }
     }
 
+
     function handleSaveSKDekan() {
       var link = document.getElementById('inputSKDekan').value.trim();
       if (!link) return Swal.fire('Oops', 'Masukkan link SK', 'warning');
 
+
       var btn = document.getElementById('btnSaveSK'); var oldText = btn.innerHTML;
       btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Menyimpan...'; btn.disabled = true;
 
+
       var payload = { prodi: currentProdi, ta: document.getElementById('filterTA').value, semester: document.getElementById('filterSemester').value, link_sk: link };
+
 
       if (typeof google !== 'undefined') {
         gasRun('saveSKDekan', payload).then(function(res) {
@@ -1802,6 +1927,7 @@ function handleDeleteMK(mkName) {
       }
     }
 
+
 // ACTION: EXPORT TO PDF (VIA GOOGLE DOCS)
     function exportToPDF() {
       var namaPenilai = document.getElementById('inputNamaPenilai').value.trim();
@@ -1811,10 +1937,12 @@ function handleDeleteMK(mkName) {
          return Swal.fire('Perhatian', 'Silakan isi "Nama Penilai GJM" dan "NIP / NIDN" terlebih dahulu sebelum mengekspor.', 'warning');
       }
 
+
       var filteredData = dbPengajaran.filter(function(item) { return item.fase === activePengajaranTab; });
       if (filteredData.length === 0) {
          return Swal.fire('Perhatian', 'Tidak ada data untuk diekspor pada fase ini.', 'warning');
       }
+
 
       var prodi = currentProdi || '-';
       var ta = document.getElementById('filterTA').value;
@@ -1837,12 +1965,16 @@ function handleDeleteMK(mkName) {
       var mkCount = 1;
       var indOrder = activePengajaranTab === 'Pra' ? aspekListPra : (activePengajaranTab === 'Proses' ? aspekListProses : aspekListPasca);
       
-      for (var mk in groups) {
+    for (var mk in groups) {
         var items = groups[mk];
         items.sort(function(a, b) { return indOrder.indexOf(a.aspek) - indOrder.indexOf(b.aspek); });
         
-        var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap' || i.kelengkapan === 'Sesuai'; }).length;
-        var persentase = Math.round((countLengkap / indOrder.length) * 100) + '%';
+        var totalPoints = 0;
+        items.forEach(function(i) {
+            if (i.kelengkapan === 'Lengkap' || i.kelengkapan === 'Sesuai') totalPoints += 100;
+            else if (i.kelengkapan === 'n/a') totalPoints += 50;
+        });
+        var persentase = Math.round(totalPoints / indOrder.length) + '%';
 
         items.forEach(function(item, idx) {
           var row = [];
@@ -1896,31 +2028,35 @@ function handleDeleteMK(mkName) {
     // ==========================================
     function triggerFetchPenelitian() { fetchPenelitianData(); }
 
+
     function fetchPenelitianData(silent) {
       var requestedPage = 'penelitian';
       var reqTA = document.getElementById('filterTAPenelitian').value;
       var reqSem = document.getElementById('filterSemesterPenelitian').value;
 
+
       if (!silent) showSectionLoading('penelitianTableBody');
+
 
       if (typeof google === 'undefined') {
        setTimeout(function() {
-          if (activePage !== requestedPage && !silent) return;
-          dbPenelitian = []; toggleRoadmapViewButton(mockRoadmapLink);
-          isPenelitianLoaded = true; if (activePage === requestedPage) renderPenelitian();
-        }, 800);
-      } else {
-        gasRun('getPenelitianMaster', currentProdi, reqTA, reqSem).then(function(res) {
-          if (activePage !== requestedPage && !silent) return;
-          dbPenelitian = res.dataPenelitian || [];
-          toggleRoadmapViewButton(res.linkRoadmap);
-          isPenelitianLoaded = true; if (activePage === requestedPage) renderPenelitian();
+          if (activePage !== requestedPage && !silent) return;
+          dbPenelitian = []; toggleRoadmapViewButton(mockRoadmapLink);
+          isPenelitianLoaded = true; if (activePage === requestedPage) renderPenelitian();
+        }, 800);
+      } else {
+        gasRun('getPenelitianMaster', currentProdi, reqTA, reqSem).then(function(res) {
+          if (activePage !== requestedPage && !silent) return;
+          dbPenelitian = res.dataPenelitian || [];
+          toggleRoadmapViewButton(res.linkRoadmap);
+          isPenelitianLoaded = true; if (activePage === requestedPage) renderPenelitian();
         }).catch(function(err) {
           var tbody = document.getElementById('penelitianTableBody');
           if (tbody && !silent) tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">Gagal memuat.</td></tr>';
         });
       }
     }
+
 
     function toggleRoadmapViewButton(linkVal) {
       var btnLihat = document.getElementById('btnLihatRoadmap');
@@ -1929,19 +2065,24 @@ function handleDeleteMK(mkName) {
       else { btnLihat.classList.add('d-none'); }
     }
 
+
     function toggleEksternalInput() {
       var sumber = document.getElementById('inputSumberDana').value;
       document.getElementById('wrapSumberEksternal').style.display = (sumber === 'Eksternal') ? 'block' : 'none';
     }
 
+
 function handleSaveRoadmap() {
       var link = document.getElementById('inputRoadmapLink').value.trim();
       if (!link) return Swal.fire('Oops', 'Masukkan link Roadmap', 'warning');
 
+
       var btn = document.getElementById('btnSaveRoadmap'); var oldText = btn.innerHTML;
       btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Menyimpan...'; btn.disabled = true;
 
+
       var payload = { prodi: currentProdi, link_roadmap: link };
+
 
       if (typeof google !== 'undefined') {
         gasRun('saveRoadmapPenelitian', payload).then(function(res) {
@@ -1954,6 +2095,7 @@ function handleSaveRoadmap() {
       }
     }
 
+
     function renderPenelitian() {
       var tbody = document.getElementById('penelitianTableBody');
       if (!tbody) return;
@@ -1961,12 +2103,14 @@ function handleSaveRoadmap() {
         tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5"><span class="text-muted">Belum ada data penelitian.</span></td></tr>'; return;
       }
 
+
       var groups = {};
       dbPenelitian.forEach(function(item) {
         var key = item.judul + '|' + item.nama_ketua;
         if (!groups[key]) groups[key] = [];
         groups[key].push(item);
       });
+
 
       var html = ''; var noCount = 1; var isAdmin = currentUser.role === 'Admin';
       for (var key in groups) {
@@ -1976,6 +2120,7 @@ function handleSaveRoadmap() {
         var rowspan = items.length;
         var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap'; }).length;
         var persentase = Math.round((countLengkap / aspekListPenelitian.length) * 100);
+
 
         items.forEach(function(item, idx) {
           var isSyncing = item._isSyncing;
@@ -2007,6 +2152,7 @@ function handleSaveRoadmap() {
              var kBadge = item.ketersediaan === 'Ada' ? 'bg-primary' : (item.ketersediaan === 'Tidak Ada' ? 'bg-warning text-dark' : 'bg-light text-muted border');
              html += '<td class="text-center align-middle"><span class="badge '+kBadge+'">' + (item.ketersediaan || '-') + '</span></td>';
 
+
              // Bukti (Link)
              html += '<td class="text-center align-middle">';
              if (item.link) {
@@ -2018,6 +2164,7 @@ function handleSaveRoadmap() {
              }
              html += '</td>';
 
+
              // Kelengkapan (GJM)
              var badgeColor = item.kelengkapan === 'Lengkap' ? 'bg-success' : (item.kelengkapan === 'Tidak Lengkap' ? 'bg-danger' : 'bg-secondary');
              html += '<td class="text-center align-middle">';
@@ -2025,9 +2172,11 @@ function handleSaveRoadmap() {
              if (isAdmin) { html += '<br><button class="btn btn-sm btn-outline-secondary py-0 px-1" style="font-size:0.7rem;" onclick="openEvaluasiPenelitian('+item.id+')"><i class="fa-solid fa-pen"></i> Nilai</button>'; }
              html += '</td>';
 
+
              // Keterangan
              html += '<td class="align-middle text-wrap" style="min-width:180px;"><small class="text-muted">' + (item.keterangan || '-') + '</small></td>';
           }
+
 
           if (idx === 0) {
              var pctColor = persentase === 100 ? 'text-success' : (persentase >= 50 ? 'text-warning' : 'text-danger');
@@ -2042,16 +2191,19 @@ function handleSaveRoadmap() {
       tbody.innerHTML = html;
     }
 
+
     function handleAddPenelitian() {
       var nKetua = document.getElementById('inputNamaKetua').value; var nPakar = document.getElementById('inputKepakaran').value;
       var nTahun = document.getElementById('inputTahunPenelitian').value; var nJudul = document.getElementById('inputJudulPenelitian').value;
       var nDana = document.getElementById('inputBesaranDana').value; var nSumber = document.getElementById('inputSumberDana').value;
       var nEksternal = document.getElementById('inputSumberEksternal').value;
 
+
       var payload = {
         prodi: currentProdi, ta: document.getElementById('filterTAPenelitian').value, semester: document.getElementById('filterSemesterPenelitian').value,
         nama_ketua: nKetua, kepakaran: nPakar, tahun_penelitian: nTahun, judul: nJudul, besaran_dana: nDana, sumber_dana: nSumber, sumber_dana_eksternal: nEksternal
       };
+
 
       document.getElementById('formAddPenelitian').reset(); document.getElementById('wrapSumberEksternal').style.display='none';
       Swal.fire({ icon:'info', title:'Menyimpan data...', toast:true, position:'top-end', showConfirmButton:false, timer:2000 });
@@ -2061,6 +2213,7 @@ function handleSaveRoadmap() {
           .catch(function(err) { Swal.fire('Error', 'Gagal', 'error'); });
       }
     }
+
 
     function handleDeletePenelitian(judul) {
       Swal.fire({ title: 'Hapus Penelitian?', text: 'Seluruh struktur akan dihapus.', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya'
@@ -2073,6 +2226,7 @@ function handleSaveRoadmap() {
       });
     }
 
+
     function openInputPenelitian(id) {
       var item = dbPenelitian.find(function(x) { return String(x.id) === String(id); });
       if (!item) return;
@@ -2082,6 +2236,7 @@ function handleSaveRoadmap() {
       document.getElementById('inputPenelitianLink').value = item.link || '';
       var modal = new bootstrap.Modal(document.getElementById('modalInputLinkPenelitian')); modal.show();
     }
+
 
     function handleSaveLinkPenelitian() {
       var id = document.getElementById('linkPenelitianDataId').value;
@@ -2094,6 +2249,7 @@ function handleSaveRoadmap() {
       if (typeof google !== 'undefined') gasRun('updateGKMInputPenelitian', {id:id, ketersediaan:newK, link:newL}).then(function(res){ if(res.success) fetchPenelitianData(true); });
     }
 
+
     function openEvaluasiPenelitian(id) {
       var item = dbPenelitian.find(function(x) { return String(x.id) === String(id); });
       if (!item) return;
@@ -2103,6 +2259,7 @@ function handleSaveRoadmap() {
       document.getElementById('inputPenelitianKeterangan').value = item.keterangan || '';
       var modal = new bootstrap.Modal(document.getElementById('modalEvaluasiPenelitian')); modal.show();
     }
+
 
     function handleSaveEvaluasiPenelitian() {
       var id = document.getElementById('evalPenelitianDataId').value;
@@ -2122,6 +2279,7 @@ function handleSaveRoadmap() {
       if (!namaPenilai || !nipNidn) { return Swal.fire('Perhatian', 'Silakan isi "Nama Penilai GJM" dan "NIP / NIDN".', 'warning'); }
       if (dbPenelitian.length === 0) { return Swal.fire('Perhatian', 'Tidak ada data penelitian untuk diekspor.', 'warning'); }
 
+
       var tableData = [];
       tableData.push(['No.', 'Informasi Penelitian', 'Aspek', 'Ketersediaan', 'Bukti (Link)', 'Kelengkapan', 'Keterangan', 'Persentase']);
       
@@ -2132,6 +2290,7 @@ function handleSaveRoadmap() {
         groups[key].push(item);
       });
 
+
       var noCount = 1;
       for (var key in groups) {
         var items = groups[key];
@@ -2139,6 +2298,7 @@ function handleSaveRoadmap() {
         
         var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap'; }).length;
         var persentase = Math.round((countLengkap / aspekListPenelitian.length) * 100) + '%';
+
 
         items.forEach(function(item, idx) {
           var noStr = (idx === 0) ? String(noCount) : '';
@@ -2175,34 +2335,38 @@ function handleSaveRoadmap() {
 // ==========================================
     function triggerFetchPengabdian() { fetchPengabdianData(); }
 
+
     function fetchPengabdianData(silent) {
       var requestedPage = 'pengabdian';
       var reqTA = document.getElementById('filterTAPengabdian').value;
       var reqSem = document.getElementById('filterSemesterPengabdian').value;
 
+
       if (!silent) showSectionLoading('pengabdianTableBody');
+
 
       if (typeof google === 'undefined') {
       setTimeout(function() {
-          if (activePage !== requestedPage && !silent) return;
-          dbPengabdian = []; toggleRoadmapViewButtonPengabdian(mockRoadmapLinkPengabdian);
-          isPengabdianLoaded = true; if (activePage === requestedPage) renderPengabdian();
-        }, 800);
-      } else {
-       gasRun('getPengabdianMaster', currentProdi, reqTA, reqSem).then(function(res) {
-          if (activePage !== requestedPage && !silent) return;
-          dbPengabdian = res.dataPengabdian || [];
-          toggleRoadmapViewButtonPengabdian(res.linkRoadmap);
-          isPengabdianLoaded = true; 
-          if (activePage === requestedPage) {
-            renderPengabdian();
-          }
-        }).catch(function(err) {
+          if (activePage !== requestedPage && !silent) return;
+          dbPengabdian = []; toggleRoadmapViewButtonPengabdian(mockRoadmapLinkPengabdian);
+          isPengabdianLoaded = true; if (activePage === requestedPage) renderPengabdian();
+        }, 800);
+      } else {
+       gasRun('getPengabdianMaster', currentProdi, reqTA, reqSem).then(function(res) {
+          if (activePage !== requestedPage && !silent) return;
+          dbPengabdian = res.dataPengabdian || [];
+          toggleRoadmapViewButtonPengabdian(res.linkRoadmap);
+          isPengabdianLoaded = true; 
+          if (activePage === requestedPage) {
+            renderPengabdian();
+          }
+        }).catch(function(err) {
           var tbody = document.getElementById('pengabdianTableBody');
           if (tbody && !silent) tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">Gagal memuat.</td></tr>';
         });
       }
     }
+
 
     function toggleRoadmapViewButtonPengabdian(linkVal) {
       var btnLihat = document.getElementById('btnLihatRoadmapPengabdian');
@@ -2211,19 +2375,24 @@ function handleSaveRoadmap() {
       else { btnLihat.classList.add('d-none'); }
     }
 
+
     function toggleEksternalInputPengabdian() {
       var sumber = document.getElementById('inputSumberDanaPengabdian').value;
       document.getElementById('wrapSumberEksternalPengabdian').style.display = (sumber === 'Eksternal') ? 'block' : 'none';
     }
 
+
     function handleSaveRoadmapPengabdian() {
       var link = document.getElementById('inputRoadmapLinkPengabdian').value.trim();
       if (!link) return Swal.fire('Oops', 'Masukkan link Roadmap', 'warning');
 
+
       var btn = document.getElementById('btnSaveRoadmapPengabdian'); var oldText = btn.innerHTML;
       btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Menyimpan...'; btn.disabled = true;
 
+
       var payload = { prodi: currentProdi, link_roadmap: link };
+
 
       if (typeof google !== 'undefined') {
         gasRun('saveRoadmapPengabdian', payload).then(function(res) {
@@ -2236,6 +2405,7 @@ function handleSaveRoadmap() {
       }
     }
 
+
     function renderPengabdian() {
       var tbody = document.getElementById('pengabdianTableBody');
       if (!tbody) return;
@@ -2243,12 +2413,14 @@ function handleSaveRoadmap() {
         tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5"><span class="text-muted">Belum ada data pengabdian.</span></td></tr>'; return;
       }
 
+
       var groups = {};
       dbPengabdian.forEach(function(item) {
         var key = item.judul + '|' + item.nama_ketua;
         if (!groups[key]) groups[key] = [];
         groups[key].push(item);
       });
+
 
       var html = ''; var noCount = 1; var isAdmin = currentUser.role === 'Admin';
       for (var key in groups) {
@@ -2258,6 +2430,7 @@ function handleSaveRoadmap() {
         var rowspan = items.length;
         var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap'; }).length;
         var persentase = Math.round((countLengkap / aspekListPengabdian.length) * 100);
+
 
         items.forEach(function(item, idx) {
           var isSyncing = item._isSyncing;
@@ -2289,6 +2462,7 @@ function handleSaveRoadmap() {
              var kBadge = item.ketersediaan === 'Ada' ? 'bg-primary' : (item.ketersediaan === 'Tidak Ada' ? 'bg-warning text-dark' : 'bg-light text-muted border');
              html += '<td class="text-center align-middle"><span class="badge '+kBadge+'">' + (item.ketersediaan || '-') + '</span></td>';
 
+
              // Bukti (Link)
              html += '<td class="text-center align-middle">';
              if (item.link) {
@@ -2300,6 +2474,7 @@ function handleSaveRoadmap() {
              }
              html += '</td>';
 
+
              // Kelengkapan (GJM)
              var badgeColor = item.kelengkapan === 'Lengkap' ? 'bg-success' : (item.kelengkapan === 'Tidak Lengkap' ? 'bg-danger' : 'bg-secondary');
              html += '<td class="text-center align-middle">';
@@ -2307,9 +2482,11 @@ function handleSaveRoadmap() {
              if (isAdmin) { html += '<br><button class="btn btn-sm btn-outline-secondary py-0 px-1" style="font-size:0.7rem;" onclick="openEvaluasiPengabdian('+item.id+')"><i class="fa-solid fa-pen"></i> Nilai</button>'; }
              html += '</td>';
 
+
              // Keterangan
              html += '<td class="align-middle text-wrap" style="min-width:180px;"><small class="text-muted">' + (item.keterangan || '-') + '</small></td>';
           }
+
 
           if (idx === 0) {
              var pctColor = persentase === 100 ? 'text-success' : (persentase >= 50 ? 'text-warning' : 'text-danger');
@@ -2324,16 +2501,19 @@ function handleSaveRoadmap() {
       tbody.innerHTML = html;
     }
 
+
     function handleAddPengabdian() {
       var nKetua = document.getElementById('inputNamaKetuaPengabdian').value; var nPakar = document.getElementById('inputKepakaranPengabdian').value;
       var nTahun = document.getElementById('inputTahunPengabdian').value; var nJudul = document.getElementById('inputJudulPengabdian').value;
       var nDana = document.getElementById('inputBesaranDanaPengabdian').value; var nSumber = document.getElementById('inputSumberDanaPengabdian').value;
       var nEksternal = document.getElementById('inputSumberEksternalPengabdian').value;
 
+
       var payload = {
         prodi: currentProdi, ta: document.getElementById('filterTAPengabdian').value, semester: document.getElementById('filterSemesterPengabdian').value,
         nama_ketua: nKetua, kepakaran: nPakar, tahun_pengabdian: nTahun, judul: nJudul, besaran_dana: nDana, sumber_dana: nSumber, sumber_dana_eksternal: nEksternal
       };
+
 
       document.getElementById('formAddPengabdian').reset(); document.getElementById('wrapSumberEksternalPengabdian').style.display='none';
       Swal.fire({ icon:'info', title:'Menyimpan data...', toast:true, position:'top-end', showConfirmButton:false, timer:2000 });
@@ -2343,6 +2523,7 @@ function handleSaveRoadmap() {
           .catch(function(err) { Swal.fire('Error', 'Gagal', 'error'); });
       }
     }
+
 
     function handleDeletePengabdian(judul) {
       Swal.fire({ title: 'Hapus Pengabdian?', text: 'Seluruh struktur akan dihapus.', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya'
@@ -2355,6 +2536,7 @@ function handleSaveRoadmap() {
       });
     }
 
+
     function openInputPengabdian(id) {
       var item = dbPengabdian.find(function(x) { return String(x.id) === String(id); });
       if (!item) return;
@@ -2364,6 +2546,7 @@ function handleSaveRoadmap() {
       document.getElementById('inputPengabdianLink').value = item.link || '';
       var modal = new bootstrap.Modal(document.getElementById('modalInputLinkPengabdian')); modal.show();
     }
+
 
     function handleSaveLinkPengabdian() {
       var id = document.getElementById('linkPengabdianDataId').value;
@@ -2376,6 +2559,7 @@ function handleSaveRoadmap() {
       if (typeof google !== 'undefined') gasRun('updateGKMInputPengabdian', {id:id, ketersediaan:newK, link:newL}).then(function(res){ if(res.success) fetchPengabdianData(true); });
     }
 
+
     function openEvaluasiPengabdian(id) {
       var item = dbPengabdian.find(function(x) { return String(x.id) === String(id); });
       if (!item) return;
@@ -2385,6 +2569,7 @@ function handleSaveRoadmap() {
       document.getElementById('inputPengabdianKeterangan').value = item.keterangan || '';
       var modal = new bootstrap.Modal(document.getElementById('modalEvaluasiPengabdian')); modal.show();
     }
+
 
     function handleSaveEvaluasiPengabdian() {
       var id = document.getElementById('evalPengabdianDataId').value;
@@ -2397,6 +2582,7 @@ function handleSaveRoadmap() {
       if (typeof google !== 'undefined') gasRun('updateEvaluasiPengabdian', {id:id, kelengkapan:newKel, keterangan:newKet}).then(function(res){ if(res.success) fetchPengabdianData(true); });
     }
 
+
     // ACTION: EXPORT PENGABDIAN TO PDF (VIA GOOGLE DOCS)
     function exportPengabdianToPDF() {
       var namaPenilai = document.getElementById('inputNamaPenilaiPengabdian').value.trim();
@@ -2404,6 +2590,7 @@ function handleSaveRoadmap() {
       
       if (!namaPenilai || !nipNidn) { return Swal.fire('Perhatian', 'Silakan isi "Nama Penilai GJM" dan "NIP / NIDN".', 'warning'); }
       if (dbPengabdian.length === 0) { return Swal.fire('Perhatian', 'Tidak ada data pengabdian untuk diekspor.', 'warning'); }
+
 
       var tableData = [];
       tableData.push(['No.', 'Informasi Pengabdian', 'Aspek', 'Ketersediaan', 'Bukti (Link)', 'Kelengkapan', 'Keterangan', 'Persentase']);
@@ -2415,6 +2602,7 @@ function handleSaveRoadmap() {
         groups[key].push(item);
       });
 
+
       var noCount = 1;
       for (var key in groups) {
         var items = groups[key];
@@ -2422,6 +2610,7 @@ function handleSaveRoadmap() {
         
         var countLengkap = items.filter(function(i){ return i.kelengkapan === 'Lengkap'; }).length;
         var persentase = Math.round((countLengkap / aspekListPengabdian.length) * 100) + '%';
+
 
         items.forEach(function(item, idx) {
           var noStr = (idx === 0) ? String(noCount) : '';
@@ -2456,9 +2645,9 @@ function handleSaveRoadmap() {
   // ==========================================
 // LOGIKA LAPORAN MONEV
 // ==========================================
-    function fetchMonevData() {
-      var reqTA = document.getElementById('filterTAMonev').value;
-      var reqSem = document.getElementById('filterSemesterMonev').value;
+    function fetchMonevData() {
+      var reqTA = document.getElementById('filterTAMonev').value;
+      var reqSem = document.getElementById('filterSemesterMonev').value;
       
       var tbody = document.getElementById('monevTableBody');
       if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted"><span class="spinner-border spinner-border-sm me-2"></span>Memuat Laporan...</td></tr>';
@@ -2474,6 +2663,7 @@ function handleSaveRoadmap() {
         });
       }
     }
+
 
     function renderMonev() {
       var tbody = document.getElementById('monevTableBody');
@@ -2510,17 +2700,18 @@ function handleSaveRoadmap() {
       tbody.innerHTML = html;
     }
 
+
     function handleAddMonev() {
       var judul = document.getElementById('inputJudulMonev').value.trim();
       var link = document.getElementById('inputLinkMonev').value.trim();
       
      var payload = {
-        prodi: currentProdi,
-        ta: document.getElementById('filterTAMonev').value,
-        semester: document.getElementById('filterSemesterMonev').value,
-        judul_laporan: judul,
-        link_drive: link
-      };
+        prodi: currentProdi,
+        ta: document.getElementById('filterTAMonev').value,
+        semester: document.getElementById('filterSemesterMonev').value,
+        judul_laporan: judul,
+        link_drive: link
+      };
       
       document.getElementById('formAddMonev').reset();
       
@@ -2533,6 +2724,7 @@ function handleSaveRoadmap() {
         });
       }
     }
+
 
     function handleDeleteMonev(id) {
       Swal.fire({ title: 'Hapus Laporan?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya, hapus'
@@ -2550,97 +2742,100 @@ function handleSaveRoadmap() {
     // ==========================================
 // LOGIKA LAPORAN TINDAK LANJUT
 // ==========================================
-    function fetchTindakLanjutData() {
-      var reqTA = document.getElementById('filterTATindakLanjut').value;
-      var reqSem = document.getElementById('filterSemesterTindakLanjut').value;
-      
-      var tbody = document.getElementById('tindakLanjutTableBody');
-      if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted"><span class="spinner-border spinner-border-sm me-2"></span>Memuat Laporan...</td></tr>';
-      
-      if (typeof google === 'undefined') {
-        setTimeout(function() { dbTindakLanjut = []; renderTindakLanjut(); }, 500);
-      } else {
-        gasRun('getLaporanTindakLanjut', currentProdi, reqTA, reqSem).then(function(res) {
-          dbTindakLanjut = res.dataTindakLanjut || [];
-          renderTindakLanjut();
-        }).catch(function(err) {
-          if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Gagal memuat laporan tindak lanjut.</td></tr>';
-        });
-      }
-    }
+    function fetchTindakLanjutData() {
+      var reqTA = document.getElementById('filterTATindakLanjut').value;
+      var reqSem = document.getElementById('filterSemesterTindakLanjut').value;
+      
+      var tbody = document.getElementById('tindakLanjutTableBody');
+      if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted"><span class="spinner-border spinner-border-sm me-2"></span>Memuat Laporan...</td></tr>';
+      
+      if (typeof google === 'undefined') {
+        setTimeout(function() { dbTindakLanjut = []; renderTindakLanjut(); }, 500);
+      } else {
+        gasRun('getLaporanTindakLanjut', currentProdi, reqTA, reqSem).then(function(res) {
+          dbTindakLanjut = res.dataTindakLanjut || [];
+          renderTindakLanjut();
+        }).catch(function(err) {
+          if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Gagal memuat laporan tindak lanjut.</td></tr>';
+        });
+      }
+    }
 
-    function renderTindakLanjut() {
-      var tbody = document.getElementById('tindakLanjutTableBody');
-      if (!tbody) return;
-      
-      if (dbTindakLanjut.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Belum ada laporan tindak lanjut.</td></tr>';
-        return;
-      }
-      
-      var html = '';
-      dbTindakLanjut.forEach(function(item, idx) {
-        var isSyncing = item._isSyncing;
-        var opacity = isSyncing ? 'opacity-50' : '';
-        
-        html += '<tr class="'+opacity+' align-middle">';
-        html += '<td class="text-center">' + (idx + 1) + '</td>';
-        html += '<td class="fw-medium text-dark">' + item.judul_laporan + '</td>';
-        html += '<td class="text-center"><a href="'+item.link_drive+'" target="_blank" class="btn btn-sm btn-info text-white"><i class="fa-solid fa-link me-1"></i> Buka Link</a></td>';
-        html += '<td class="text-center small text-muted">' + item.created_at + '</td>';
-        
-        html += '<td class="text-center">';
-        if (currentUser.role === 'Staff' && !isSyncing) {
-          html += '<button class="btn btn-sm btn-outline-danger py-1 px-2" onclick="handleDeleteTindakLanjut('+item.id+')"><i class="fa-solid fa-trash"></i></button>';
-        } else if (currentUser.role === 'Admin') {
-          html += '<span class="text-muted small">-</span>';
-        } else {
-          html += '<span class="spinner-border spinner-border-sm text-secondary"></span>';
-        }
-        html += '</td>';
-        
-        html += '</tr>';
-      });
-      tbody.innerHTML = html;
-    }
 
-    function handleAddTindakLanjut() {
-      var judul = document.getElementById('inputJudulTindakLanjut').value.trim();
-      var link = document.getElementById('inputLinkTindakLanjut').value.trim();
-      
-     var payload = {
-        prodi: currentProdi,
-        ta: document.getElementById('filterTATindakLanjut').value,
-        semester: document.getElementById('filterSemesterTindakLanjut').value,
-        judul_laporan: judul,
-        link_drive: link
-      };
-      
-      document.getElementById('formAddTindakLanjut').reset();
-      
-      var tempObj = { id: Date.now(), judul_laporan: judul, link_drive: link, created_at: safeDate(new Date()), _isSyncing: true };
-      dbTindakLanjut.push(tempObj); renderTindakLanjut();
-      
-      if (typeof google !== 'undefined') {
-        gasRun('addLaporanTindakLanjut', payload).then(function(res) {
-          if (res.success) fetchTindakLanjutData(); else Swal.fire('Error', res.message, 'error');
-        });
-      }
-    }
+    function renderTindakLanjut() {
+      var tbody = document.getElementById('tindakLanjutTableBody');
+      if (!tbody) return;
+      
+      if (dbTindakLanjut.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Belum ada laporan tindak lanjut.</td></tr>';
+        return;
+      }
+      
+      var html = '';
+      dbTindakLanjut.forEach(function(item, idx) {
+        var isSyncing = item._isSyncing;
+        var opacity = isSyncing ? 'opacity-50' : '';
+        
+        html += '<tr class="'+opacity+' align-middle">';
+        html += '<td class="text-center">' + (idx + 1) + '</td>';
+        html += '<td class="fw-medium text-dark">' + item.judul_laporan + '</td>';
+        html += '<td class="text-center"><a href="'+item.link_drive+'" target="_blank" class="btn btn-sm btn-info text-white"><i class="fa-solid fa-link me-1"></i> Buka Link</a></td>';
+        html += '<td class="text-center small text-muted">' + item.created_at + '</td>';
+        
+        html += '<td class="text-center">';
+        if (currentUser.role === 'Staff' && !isSyncing) {
+          html += '<button class="btn btn-sm btn-outline-danger py-1 px-2" onclick="handleDeleteTindakLanjut('+item.id+')"><i class="fa-solid fa-trash"></i></button>';
+        } else if (currentUser.role === 'Admin') {
+          html += '<span class="text-muted small">-</span>';
+        } else {
+          html += '<span class="spinner-border spinner-border-sm text-secondary"></span>';
+        }
+        html += '</td>';
+        
+        html += '</tr>';
+      });
+      tbody.innerHTML = html;
+    }
 
-    function handleDeleteTindakLanjut(id) {
-      Swal.fire({ title: 'Hapus Laporan?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya, hapus'
-      }).then(function(result) {
-        if (!result.isConfirmed) return;
-        
-        dbTindakLanjut = dbTindakLanjut.filter(function(x) { return String(x.id) !== String(id); });
-        renderTindakLanjut();
-        
-        if (typeof google !== 'undefined') {
-          gasRun('deleteLaporanTindakLanjut', id).then(function(res) { if (!res.success) fetchTindakLanjutData(); });
-        }
-      });
-    }
+
+    function handleAddTindakLanjut() {
+      var judul = document.getElementById('inputJudulTindakLanjut').value.trim();
+      var link = document.getElementById('inputLinkTindakLanjut').value.trim();
+      
+     var payload = {
+        prodi: currentProdi,
+        ta: document.getElementById('filterTATindakLanjut').value,
+        semester: document.getElementById('filterSemesterTindakLanjut').value,
+        judul_laporan: judul,
+        link_drive: link
+      };
+      
+      document.getElementById('formAddTindakLanjut').reset();
+      
+      var tempObj = { id: Date.now(), judul_laporan: judul, link_drive: link, created_at: safeDate(new Date()), _isSyncing: true };
+      dbTindakLanjut.push(tempObj); renderTindakLanjut();
+      
+      if (typeof google !== 'undefined') {
+        gasRun('addLaporanTindakLanjut', payload).then(function(res) {
+          if (res.success) fetchTindakLanjutData(); else Swal.fire('Error', res.message, 'error');
+        });
+      }
+    }
+
+
+    function handleDeleteTindakLanjut(id) {
+      Swal.fire({ title: 'Hapus Laporan?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya, hapus'
+      }).then(function(result) {
+        if (!result.isConfirmed) return;
+        
+        dbTindakLanjut = dbTindakLanjut.filter(function(x) { return String(x.id) !== String(id); });
+        renderTindakLanjut();
+        
+        if (typeof google !== 'undefined') {
+          gasRun('deleteLaporanTindakLanjut', id).then(function(res) { if (!res.success) fetchTindakLanjutData(); });
+        }
+      });
+    }
     // ==========================================
     // LOGIKA DOKUMEN HASIL MONITORING (UPLOAD FILE)
     // ==========================================
@@ -2662,6 +2857,7 @@ function handleSaveRoadmap() {
         });
       }
     }
+
 
     function renderDokumenMonitoring() {
       var tbody = document.getElementById('dokumenMonitoringTableBody');
@@ -2698,6 +2894,7 @@ function handleSaveRoadmap() {
       tbody.innerHTML = html;
     }
 
+
     function handleAddDokumenMonitoring() {
       var judul = document.getElementById('inputJudulDokumen').value.trim();
       var fileInput = document.getElementById('inputFileDokumen');
@@ -2711,6 +2908,7 @@ function handleSaveRoadmap() {
       var oldText = btn.innerHTML;
       btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Mengupload...';
       btn.disabled = true;
+
 
       reader.onload = function(e) {
         var base64Data = e.target.result;
@@ -2753,6 +2951,7 @@ function handleSaveRoadmap() {
       reader.readAsDataURL(file);
     }
 
+
     function handleDeleteDokumenMonitoring(id) {
       Swal.fire({ title: 'Hapus Dokumen?', text: 'File fisik di Google Drive tidak akan terhapus, hanya data di sistem.', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Ya, hapus'
       }).then(function(result) {
@@ -2774,7 +2973,9 @@ function handleSaveRoadmap() {
       var p = document.getElementById('password').value.trim();
       if (!u || !p) return Swal.fire('Oops', 'Username & Password wajib diisi!', 'warning');
 
+
       showFullPageLoading('Otentikasi Akun...');
+
 
       if (typeof google === 'undefined') {
         setTimeout(function() {
@@ -2799,14 +3000,16 @@ function handleSaveRoadmap() {
       }
     }
 
+
     function logout() {
-      currentUser = null; currentProdi = null; dbPengajaran = []; isPengajaranLoaded = false; isPenelitianLoaded = false; isPengabdianLoaded = false; activePage = 'pengajaran'; activePengajaranTab = 'Pra';
-      checkLoginState();
+      currentUser = null; currentProdi = null; dbPengajaran = []; isPengajaranLoaded = false; isPenelitianLoaded = false; isPengabdianLoaded = false; activePage = 'pengajaran'; activePengajaranTab = 'Pra';
+      checkLoginState();
       if (window.innerWidth < 992) {
         var sb = document.querySelector('.sidebar'); var ov = document.querySelector('.sidebar-overlay');
         if(sb) sb.classList.remove('active'); if(ov) ov.classList.remove('active');
       }
     }
+
 
     // ==========================================
     // INITIALIZATION
@@ -2818,26 +3021,32 @@ function handleSaveRoadmap() {
       var formSK = document.getElementById('formSKDekan'); if (formSK) formSK.addEventListener('submit', function(e) { e.preventDefault(); handleSaveSKDekan(); });
       var formEval = document.getElementById('formEvaluasi'); if (formEval) formEval.addEventListener('submit', function(e) { e.preventDefault(); handleSaveEvaluasi(); });
 
-      // Listener Modul Penelitian
-      var formRoadmap = document.getElementById('formRoadmapPenelitian'); if (formRoadmap) formRoadmap.addEventListener('submit', function(e) { e.preventDefault(); handleSaveRoadmap(); });
-      var formAddPenelitian = document.getElementById('formAddPenelitian'); if (formAddPenelitian) formAddPenelitian.addEventListener('submit', function(e) { e.preventDefault(); handleAddPenelitian(); });
-      var formLinkPenelitian = document.getElementById('formInputLinkPenelitian'); if (formLinkPenelitian) formLinkPenelitian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveLinkPenelitian(); });
-      var formEvalPenelitian = document.getElementById('formEvaluasiPenelitian'); if (formEvalPenelitian) formEvalPenelitian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveEvaluasiPenelitian(); });
 
-      // Listener Modul Pengabdian
-      var formRoadmapPeng = document.getElementById('formRoadmapPengabdian'); if (formRoadmapPeng) formRoadmapPeng.addEventListener('submit', function(e) { e.preventDefault(); handleSaveRoadmapPengabdian(); });
-      var formAddPengabdian = document.getElementById('formAddPengabdian'); if (formAddPengabdian) formAddPengabdian.addEventListener('submit', function(e) { e.preventDefault(); handleAddPengabdian(); });
-      var formLinkPengabdian = document.getElementById('formInputLinkPengabdian'); if (formLinkPengabdian) formLinkPengabdian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveLinkPengabdian(); });
-      var formEvalPengabdian = document.getElementById('formEvaluasiPengabdian'); if (formEvalPengabdian) formEvalPengabdian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveEvaluasiPengabdian(); });
+      // Listener Modul Penelitian
+      var formRoadmap = document.getElementById('formRoadmapPenelitian'); if (formRoadmap) formRoadmap.addEventListener('submit', function(e) { e.preventDefault(); handleSaveRoadmap(); });
+      var formAddPenelitian = document.getElementById('formAddPenelitian'); if (formAddPenelitian) formAddPenelitian.addEventListener('submit', function(e) { e.preventDefault(); handleAddPenelitian(); });
+      var formLinkPenelitian = document.getElementById('formInputLinkPenelitian'); if (formLinkPenelitian) formLinkPenelitian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveLinkPenelitian(); });
+      var formEvalPenelitian = document.getElementById('formEvaluasiPenelitian'); if (formEvalPenelitian) formEvalPenelitian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveEvaluasiPenelitian(); });
+
+
+      // Listener Modul Pengabdian
+      var formRoadmapPeng = document.getElementById('formRoadmapPengabdian'); if (formRoadmapPeng) formRoadmapPeng.addEventListener('submit', function(e) { e.preventDefault(); handleSaveRoadmapPengabdian(); });
+      var formAddPengabdian = document.getElementById('formAddPengabdian'); if (formAddPengabdian) formAddPengabdian.addEventListener('submit', function(e) { e.preventDefault(); handleAddPengabdian(); });
+      var formLinkPengabdian = document.getElementById('formInputLinkPengabdian'); if (formLinkPengabdian) formLinkPengabdian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveLinkPengabdian(); });
+      var formEvalPengabdian = document.getElementById('formEvaluasiPengabdian'); if (formEvalPengabdian) formEvalPengabdian.addEventListener('submit', function(e) { e.preventDefault(); handleSaveEvaluasiPengabdian(); });
+
 
     // Listener Laporan Monev
-      var formAddMonev = document.getElementById('formAddMonev'); if (formAddMonev) formAddMonev.addEventListener('submit', function(e) { e.preventDefault(); handleAddMonev(); });
+      var formAddMonev = document.getElementById('formAddMonev'); if (formAddMonev) formAddMonev.addEventListener('submit', function(e) { e.preventDefault(); handleAddMonev(); });
 
-     // Listener Laporan Tindak Lanjut
+
+     // Listener Laporan Tindak Lanjut
       var formAddTindakLanjut = document.getElementById('formAddTindakLanjut'); if (formAddTindakLanjut) formAddTindakLanjut.addEventListener('submit', function(e) { e.preventDefault(); handleAddTindakLanjut(); });
+
 
       // Listener Dokumen Hasil Monitoring
       var formAddDokumen = document.getElementById('formAddDokumenMonitoring'); if (formAddDokumen) formAddDokumen.addEventListener('submit', function(e) { e.preventDefault(); handleAddDokumenMonitoring(); });
+
 
       // Auto Kalkulasi Persentase Ya & Tidak di form GKM
       document.getElementById('inputYaPercent').addEventListener('input', function() {
@@ -2849,10 +3058,12 @@ function handleSaveRoadmap() {
           if(!isNaN(val) && val <= 100 && val >= 0) document.getElementById('inputYaPercent').value = 100 - val;
       });
 
+
       if (typeof google === 'undefined') {
         var badge = document.createElement('div'); badge.className = 'position-fixed bottom-0 start-0 m-3 badge bg-warning text-dark shadow px-3 py-2'; badge.style.zIndex = '9998'; badge.innerHTML = '⚠️ MODE SIMULASI'; document.body.appendChild(badge);
         var pInfo = document.getElementById('previewLoginInfo'); if(pInfo) pInfo.classList.remove('d-none');
       }
+
 
       checkLoginState();
     });
