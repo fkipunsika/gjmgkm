@@ -880,7 +880,7 @@
             </div>
             <div class="mb-2">
               <label class="form-label fw-semibold">URL Link Dokumen <span class="text-danger">*</span></label>
-              <input type="url" class="form-control" id="inputUrlLink" placeholder="https://drive.google.com/..." required>
+              <textarea class="form-control" id="inputUrlLink" rows="3" placeholder="Satu link bukti per baris" required></textarea>
             </div>
           </div>
           <div class="modal-footer border-top-0 pt-0">
@@ -953,7 +953,7 @@
             </div>
             <div class="mb-2">
               <label class="form-label fw-semibold">URL Link Dokumen <span class="text-danger">*</span></label>
-              <input type="url" class="form-control" id="inputPenelitianLink" placeholder="https://drive.google.com/..." required>
+              <textarea class="form-control" id="inputPenelitianLink" rows="3" placeholder="Satu link bukti per baris" required></textarea>
             </div>
           </div>
           <div class="modal-footer border-top-0 pt-0">
@@ -1027,7 +1027,7 @@
             </div>
             <div class="mb-2">
               <label class="form-label fw-semibold">URL Link Dokumen <span class="text-danger">*</span></label>
-              <input type="url" class="form-control" id="inputPengabdianLink" placeholder="https://drive.google.com/..." required>
+              <textarea class="form-control" id="inputPengabdianLink" rows="3" placeholder="Satu link bukti per baris" required></textarea>
             </div>
           </div>
           <div class="modal-footer border-top-0 pt-0">
@@ -1104,8 +1104,10 @@
     var dbPenelitian = [];
     var mockRoadmapLink = '';
     const aspekListPenelitian = [
-      'Proposal Penelitian', 'Surat Tugas', 'Laporan Kemajuan', 'Laporan Akhir',
-      'Kesesuaian Penelitian dengan Roadmap Prodi', 'SK Hibah (jika dana hibah)', 'SPTJB (jika dana hibah)'
+      "Proposal Penelitian",
+      "Laporan penelitian",
+      "Surat Tugas",
+      "SK Hibah (jika dana hibah)"
     ];
 
 
@@ -1113,8 +1115,10 @@
     var dbPengabdian = [];
     var mockRoadmapLinkPengabdian = '';
     const aspekListPengabdian = [
-      'Proposal Pengabdian', 'Surat Tugas', 'Laporan Kemajuan', 'Laporan Akhir',
-      'Kesesuaian Pengabdian dengan Roadmap Prodi', 'SK Hibah (jika dana hibah)', 'SPTJB (jika dana hibah)'
+      "Proposal PkM",
+      "Laporan PkM",
+      "Surat Tugas",
+      "SK Hibah (jika dana hibah)"
     ];
     
    // State untuk Laporan Monev
@@ -1159,21 +1163,19 @@
 
     // MOCK DATA UNTUK SIMULASI 
     var mockDB = [
-      { id: 201, prodi: 'Pend. Matematika (S1)', tahun_akademik: '2024/2025', semester: 'Gasal', mata_kuliah: 'Metode Penelitian Kualitatif', model_pembelajaran: 'Project Based Learning', fase: 'Pra', aspek: 'Perencanaan kurikulum: Silabus dan/atau Rencana Pembelajaran Semester', ya_percent: '', tidak_percent: '', link: 'https://docs.google.com/contoh', kelengkapan: 'Lengkap', keterangan: 'Sudah disetujui Kaprodi', created_at: '2026-03-11' },
+      { id: 201, prodi: 'Pend. Matematika (S1)', tahun_akademik: '2024/2025', semester: 'Gasal', mata_kuliah: 'Metode Penelitian Kualitatif', model_pembelajaran: 'Project Based Learning', fase: 'Pra', aspek: 'Rencana Pembelajaran Semester dan Kontrak Kuliah', ya_percent: '', tidak_percent: '', link: 'https://docs.google.com/contoh', kelengkapan: 'Lengkap', keterangan: 'Sudah disetujui Kaprodi', created_at: '2026-03-11' },
       { id: 204, prodi: 'Pend. Matematika (S1)', tahun_akademik: '2024/2025', semester: 'Gasal', mata_kuliah: 'Metode Penelitian Kualitatif', model_pembelajaran: 'Project Based Learning', fase: 'Proses', aspek: 'Apakah Dosen menyampaikan rencana pembelajaran semester pada kontrak perkuliahan di awal pembelajaran?', ya_percent: '90', tidak_percent: '10', link: 'https://docs.google.com/proses', kelengkapan: 'Sesuai', keterangan: 'Dilakukan dengan baik', created_at: '2026-03-12' },
       { id: 203, prodi: 'Pend. Matematika (S1)', tahun_akademik: '2024/2025', semester: 'Gasal', mata_kuliah: 'Metode Penelitian Kualitatif', model_pembelajaran: 'Project Based Learning', fase: 'Pasca', aspek: 'Soal UTS dan pedoman penilaian UTS', ya_percent: '', tidak_percent: '', link: 'https://docs.google.com/uts', kelengkapan: '', keterangan: '', created_at: '2026-03-11' }
     ];
 
 
     const aspekListPra = [
-      'Perencanaan kurikulum: Silabus dan/atau Rencana Pembelajaran Semester',
-      'Penyediaan sumber belajar: Buku ajar, media pembelajaran, alat dll',
-      'Persiapan lingkungan kelas: Jadwal perkuliahan, saran prasarana perkuliahan seperti ruang kelas, proyektor dll.',
-      'Tugas pertemuan sebelum UTS',
-      'Hasil Kerja Tugas sebelum UTS',
-      'Rubrik Penilaian',
-      'Bahan ajar yang berkaitan dengan hasil penelitian dosen',
-      'Bahan ajar yang berkaitan dengan hasil PkM dosen'
+      "Rencana Pembelajaran Semester dan Kontrak Kuliah",
+      "Penyediaan sumber belajar: Buku ajar, media pembelajaran, alat pendukung, dll",
+      "Tugas pertemuan sebelum UTS",
+      "Hasil Kerja Tugas sebelum UTS",
+      "Rubrik Penilaian",
+      "Bahan ajar yang berkaitan dengan hasil penelitian dan atau Pkm dosen"
     ];
 
 
@@ -1193,7 +1195,9 @@
       'Hasil Kerja Tugas setelah UTS',
       'Soal UAS dan pedoman penilaian UAS',
       'Jawaban UAS',
-      'Luaran Perkuliahan (Jika ada)'
+      'Luaran Perkuliahan (Jika ada)',
+      'Daftar Hadir Dosen dan Mahasiswa',
+      'Dokumentasi pelaksanaan perkuliahan'
     ];
 
 
@@ -1201,7 +1205,7 @@
     // CORE HELPERS
     // ==========================================
     // ⚠️ PENTING: Ganti tulisan URL_WEBAPP_ANDA_DISINI dengan link WebApp Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-wOjP8TVcl9BfY0V-UId5baWs5765qyFq3qZT_4lNKyFh_K65hJtEf04SRK_p3Lye/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvPKavZBOBz4eIeTv4xj87XCEbannNbnRoODBDzCvFbCS4mGe3HJd3WZUZVaHCCfXM/exec';
 
 
     function gasRun(funcName) {
@@ -1228,6 +1232,16 @@
       });
     }
 
+
+
+    function renderBuktiLinks(value) {
+      return String(value || '').split(/\r?\n/).map(function(url, i) {
+        url = url.trim();
+        if (!/^https?:\/\//i.test(url)) return '';
+        var safe = url.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return '<a href="' + safe + '" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info text-white mb-1">Lihat Bukti ' + (i + 1) + '</a><br>';
+      }).join('');
+    }
 
     function safeDate(val) {
       if (!val) return '-';
@@ -1682,7 +1696,7 @@ function renderPengajaran() {
              // Kolom Bukti (Link)
              html += '<td class="text-center align-middle">';
              if (item.link) {
-               html += '<a href="'+item.link+'" target="_blank" class="btn btn-sm btn-info text-white mb-1"><i class="fa-solid fa-eye me-1"></i> Lihat</a>';
+               html += renderBuktiLinks(item.link);
                if (!isAdmin) { html += '<br><button class="btn btn-sm btn-link text-decoration-none small p-0" onclick="openInputLink('+item.id+')">Edit Link</button>'; }
              } else {
                if (!isAdmin) { html += '<button class="btn btn-sm btn-outline-primary" onclick="openInputLink('+item.id+')"><i class="fa-solid fa-plus me-1"></i> Input</button>'; }
@@ -2156,7 +2170,7 @@ function handleSaveRoadmap() {
              // Bukti (Link)
              html += '<td class="text-center align-middle">';
              if (item.link) {
-               html += '<a href="'+item.link+'" target="_blank" class="btn btn-sm btn-info text-white mb-1"><i class="fa-solid fa-eye me-1"></i> Lihat</a>';
+               html += renderBuktiLinks(item.link);
                if (!isAdmin) { html += '<br><button class="btn btn-sm btn-link text-decoration-none small p-0" onclick="openInputPenelitian('+item.id+')">Edit Bukti</button>'; }
              } else {
                if (!isAdmin) { html += '<button class="btn btn-sm btn-outline-primary" onclick="openInputPenelitian('+item.id+')"><i class="fa-solid fa-plus me-1"></i> Input</button>'; }
@@ -2466,7 +2480,7 @@ function handleSaveRoadmap() {
              // Bukti (Link)
              html += '<td class="text-center align-middle">';
              if (item.link) {
-               html += '<a href="'+item.link+'" target="_blank" class="btn btn-sm btn-info text-white mb-1"><i class="fa-solid fa-eye me-1"></i> Lihat</a>';
+               html += renderBuktiLinks(item.link);
                if (!isAdmin) { html += '<br><button class="btn btn-sm btn-link text-decoration-none small p-0" onclick="openInputPengabdian('+item.id+')">Edit Bukti</button>'; }
              } else {
                if (!isAdmin) { html += '<button class="btn btn-sm btn-outline-primary" onclick="openInputPengabdian('+item.id+')"><i class="fa-solid fa-plus me-1"></i> Input</button>'; }
